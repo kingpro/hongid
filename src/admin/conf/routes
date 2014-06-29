@@ -1,0 +1,44 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+module:testrunner
+
+# 后台首页
+GET     /                                       App.Index
+GET     /App/                                   App.Index
+GET     /Main/                                  App.Main
+
+# 登录页面
+GET     /Login/                                 Admin.Login
+POST    /Login/                                 Admin.Login
+GET     /Logout/                                Admin.Logout
+GET     /Left                                   Admin.Left
+POST    /Left                                   Admin.Left
+
+# 验证码
+GET     /Captcha/:CaptchaId                     Captcha.Index
+GET     /Captcha/GetCaptchaId                   Captcha.GetCaptchaId
+
+#公共
+#GET     /Map/                       			Public.Map
+#GET     /CreateHtml/                       		Public.CreateHtml
+#GET     /Search/                       			Public.Search
+GET     /Message/                       		Public.Message
+
+# 我的面板
+GET     /Panel/                              	Panel.Index
+GET     /EditInfo/                              Admin.EditInfo
+POST    /EditInfo/                              Admin.EditInfo
+GET     /EditPwd/                               Admin.EditPwd
+POST    /EditPwd/                               Admin.EditPwd
+#GET     /AdminPanel/                            User.AdminPanel
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/*filepath                       Static.Serve("public")
+
+# Catch all
+*       /:controller/:action                    :controller.:action
