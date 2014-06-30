@@ -12,9 +12,5 @@ type Panel struct {
 }
 
 func (c *Panel) Index() revel.Result {
-	title := "我的面板--HongID后台管理系统"
-
-	c.Render(title)
-
 	return c.RenderTemplate("Panel/Index.html")
 }

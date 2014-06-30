@@ -439,6 +439,8 @@ func (m *Menu) GetMenuMap(Admin_Info *Admin) template.HTML {
 //获取所有菜单
 //返回HTML
 func (m *Menu) GetMenuHtml(Admin_Info *Admin) template.HTML {
+
+	//从数据库读取菜单
 	menus := make([]*Menu, 0)
 	DB_Read.Asc("order").Find(&menus)
 

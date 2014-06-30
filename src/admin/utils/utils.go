@@ -69,13 +69,29 @@ func ParseMenuId(idStr string) (int64, bool) {
 	return parseInt(idStr)
 }
 
+//解析menu的order
+func ParseMenuOrder(orderStr string) (int64, bool) {
+	return parseInt(orderStr)
+}
+
+//解析menu的display
+func ParseMenuDisplay(displayStr string) (int64, bool) {
+	return parseInt(displayStr)
+}
+
+//解析分页page
+func ParsePage(pageStr string) (int64, bool) {
+	return parseInt(pageStr)
+}
+
 //解析string类型的int值
 func parseInt(intStr string) (int64, bool) {
 	intVal, err := strconv.ParseInt(intStr, 10, 64)
 	if err != nil {
-		revel.WARN.Printf("session[%v]解析错误: %v", intStr, err)
+		revel.WARN.Printf("[%v]解析错误: %v", intStr, err)
 		return intVal, false
 	}
 
 	return intVal, true
 }
+

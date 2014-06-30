@@ -10,7 +10,8 @@ import (
 	"github.com/revel/revel"
 	"path/filepath"
 	"runtime"
-	"strconv"
+	"admin/utils/Const"
+	"admin/utils"
 )
 
 var BasePath, _ = filepath.Abs("")
@@ -59,20 +60,9 @@ func CheckLogin(c *revel.Controller) revel.Result {
 			c.RenderArgs["currentLocale"] = "zh"
 		}
 
-		revel.TRACE.Println("登陆页面，CSS, JS, Ajax, 验证码页面 都不进行登陆验证")
-
 		return nil
 	} else {
-		if adminId, ok := c.Session["AdminID"]; ok {
-			revel.TRACE.Println("已经保存session")
-			AdminId, err := strconv.ParseInt(adminId, 10, 64)
-			if err != nil {
-				revel.WARN.Printf("解析Session错误: %v", err)
-				return c.Redirect("/Login/")
-			}
-
-			admin := new(models.Admin)
-			admin_info := admin.GetById(AdminId)
+		if admin_info, ok := GetAdminInfoById(c.Session); ok {
 			if admin_info.Id <= 0 {
 				return c.Redirect("/Login/")
 			}
@@ -80,10 +70,21 @@ func CheckLogin(c *revel.Controller) revel.Result {
 			//设置语言
 			c.RenderArgs["currentLocale"] = admin_info.Lang
 		} else {
-			revel.TRACE.Println("未保存session，跳转登录页面")
 			return c.Redirect("/Login/")
 		}
 	}
 
 	return nil
+}
+
+//根据session中存储的AdminID，获取admin信息
+func GetAdminInfoById(session revel.Session) (*models.Admin, bool) {
+	admin := new(models.Admin)
+	if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, session)); ok {
+		admin_info := admin.GetById(adminId)
+
+		return admin_info, true
+	}
+
+	return nil, false
 }

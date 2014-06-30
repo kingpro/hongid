@@ -14,10 +14,6 @@ import (
 	"utils/security"
 )
 
-type Admin struct {
-	*revel.Controller
-}
-
 //登陆
 func (c *Admin) Login(admin *models.Admin) revel.Result {
 

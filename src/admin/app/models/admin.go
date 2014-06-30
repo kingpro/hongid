@@ -119,7 +119,7 @@ func (a *Admin) GetByAll(RoleId int64, where map[string]string, Page int64, Perp
 		admin := new(Admin)
 		Total, err := DB_Read.Count(admin)
 		if err != nil {
-			revel.WARN.Printf("获取全部管理员错误: %v", err)
+			revel.WARN.Printf("获取全部管理员列表错误: %v", err)
 		}
 
 		//分页

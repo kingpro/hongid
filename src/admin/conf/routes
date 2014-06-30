@@ -32,7 +32,20 @@ GET     /EditInfo/                              Admin.EditInfo
 POST    /EditInfo/                              Admin.EditInfo
 GET     /EditPwd/                               Admin.EditPwd
 POST    /EditPwd/                               Admin.EditPwd
-#GET     /AdminPanel/                            User.AdminPanel
+
+#菜单管理
+GET     /Menu/                              	Menu.Index
+GET     /Menu/add/                          	Menu.Add
+GET     /Menu/add/:id/                          Menu.Add
+GET     /Menu/edit/                         	Menu.Edit
+GET     /Menu/edit/:id/                         Menu.Edit
+
+#管理员管理
+GET     /Admin/                              	Admin.Index
+#GET     /Admin/add/                          	Admin.Add
+#GET     /Admin/edit/:id/                        Admin.Edit
+#POST    /Admin/delete/                        	Admin.Delete
+GET     /Admin/:page/                           Admin.Index
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
