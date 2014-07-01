@@ -8,57 +8,35 @@ package Admin
 import (
 	"admin/app/models"
 	"github.com/revel/revel"
-	"strconv"
+	"admin/utils"
+	"admin/app/controllers"
 )
 
 //左侧导航菜单
 func (c *Admin) Left(menu *models.Menu) revel.Result {
-
-	title := "左侧导航--HongID后台管理系统"
 	pid := c.Params.Get("pid")
 
 	if len(pid) > 0 {
-		Pid, err := strconv.ParseInt(pid, 10, 64)
-		if err != nil {
-			revel.WARN.Printf("session解析错误: %v", err)
-		}
+		if Pid, ok := utils.ParseMenuId(pid); ok {
+			if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
+				//获取左侧导航菜单
+				left_menu := menu.GetLeftMenuHtml(Pid, admin_info)
 
-		if adminId, ok := c.Session["AdminID"]; ok {
-
-			AdminID, err := strconv.ParseInt(adminId, 10, 64)
-			if err != nil {
-				revel.WARN.Printf("session解析错误: %v", err)
+				c.Render(left_menu)
 			}
-
-			admin := new(models.Admin)
-			admin_info := admin.GetById(AdminID)
-
-			//获取左侧导航菜单
-			left_menu := menu.GetLeftMenuHtml(Pid, admin_info)
-
-			c.Render(title, left_menu)
 		} else {
-			c.Render(title)
+			c.Render()
 		}
 	} else {
 		//获取左侧导航菜单
 		//默认获取 首页
-		if adminId, ok := c.Session["AdminID"]; ok {
-
-			AdminID, err := strconv.ParseInt(adminId, 10, 64)
-			if err != nil {
-				revel.WARN.Printf("session解析错误: %v", err)
-			}
-
-			admin := new(models.Admin)
-			admin_info := admin.GetById(AdminID)
-
+		if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
 			//获取左侧导航菜单
 			left_menu := menu.GetLeftMenuHtml(1, admin_info)
 
-			c.Render(title, left_menu)
+			c.Render(left_menu)
 		} else {
-			c.Render(title)
+			c.Render()
 		}
 	}
 	return c.RenderTemplate("public/left.html")

@@ -7,8 +7,8 @@ import (
 	"github.com/revel/revel"
 	"os"
 	"runtime"
-	"strconv"
 	"strings"
+	"admin/utils/Const"
 )
 
 type App struct {
@@ -16,22 +16,9 @@ type App struct {
 }
 
 //首页
-func (c App) Index(admin *models.Admin) revel.Result {
+func (c *App) Index(admin *models.Admin) revel.Result {
 
-	revel.TRACE.Println("后台首页")
-
-	title := "首页--HongID后台管理系统"
-
-	if adminId, ok := c.Session["AdminID"]; ok {
-		AdminID, err := strconv.ParseInt(adminId, 10, 64)
-		if err != nil {
-			revel.WARN.Printf("解析Session错误: %v", err)
-		}
-
-		admin_info := admin.GetById(AdminID)
-		if admin_info.Id <= 0 {
-			return c.Redirect("/Login/")
-		}
+	if admin_info, ok := GetAdminInfoBySession(c.Session); ok {
 
 		//控制器
 		c.RenderArgs["Controller"] = c.Name
@@ -39,39 +26,27 @@ func (c App) Index(admin *models.Admin) revel.Result {
 		c.RenderArgs["Action"] = c.Action
 		//模型
 		c.RenderArgs["Model"] = c.MethodName
-
 		//导航菜单
 		menu := new(models.Menu)
 		c.RenderArgs["Menus"] = menu.GetAdminMenu(0, admin_info)
-
 		//管理员信息
 		c.RenderArgs["AdminInfo"] = admin_info
-
 		//是否锁屏
-		if c.Session["LockScreen"] == "" || c.Session["LockScreen"] == "0" {
-			c.RenderArgs["LockScreen"] = "0"
+		if c.Session[Const.C_Session_LockS] == "" || c.Session[Const.C_Session_LockS] == "0" {
+			c.RenderArgs[Const.C_Session_LockS] = Const.C_Lock_0
 		} else {
-			c.RenderArgs["LockScreen"] = "1"
+			c.RenderArgs[Const.C_Session_LockS] = Const.C_Lock_1
 		}
 	} else {
 		return c.Redirect("/Login/")
 	}
 
-	c.Render(title)
 	return c.RenderTemplate("App/Index.html")
 }
 
-func (c App) Main(admin *models.Admin) revel.Result {
+func (c *App) Main(admin *models.Admin) revel.Result {
 
-	title := "首页--HongID后台管理系统"
-
-	if adminId, ok := c.Session["AdminID"]; ok {
-		AdminId, err := strconv.ParseInt(adminId, 10, 64)
-		if err != nil {
-			revel.WARN.Printf("session解析错误: %v", err)
-		}
-
-		admin_info := admin.GetById(AdminId)
+	if admin_info, ok := GetAdminInfoBySession(c.Session); ok {
 
 		//判断是否是系统的分隔符
 		separator := "/"
@@ -106,9 +81,9 @@ func (c App) Main(admin *models.Admin) revel.Result {
 		admin_panel := new(models.AdminPanel)
 		panel_list := admin_panel.GetPanelList(admin_info)
 
-		c.Render(title, admin_info, system_info, panel_list)
+		c.Render(admin_info, system_info, panel_list)
 	} else {
-		c.Render(title)
+		c.Render()
 	}
 
 	return c.RenderTemplate("App/Main.html")

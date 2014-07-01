@@ -62,7 +62,7 @@ func CheckLogin(c *revel.Controller) revel.Result {
 
 		return nil
 	} else {
-		if admin_info, ok := GetAdminInfoById(c.Session); ok {
+		if admin_info, ok := GetAdminInfoBySession(c.Session); ok {
 			if admin_info.Id <= 0 {
 				return c.Redirect("/Login/")
 			}
@@ -78,7 +78,7 @@ func CheckLogin(c *revel.Controller) revel.Result {
 }
 
 //根据session中存储的AdminID，获取admin信息
-func GetAdminInfoById(session revel.Session) (*models.Admin, bool) {
+func GetAdminInfoBySession(session revel.Session) (*models.Admin, bool) {
 	admin := new(models.Admin)
 	if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, session)); ok {
 		admin_info := admin.GetById(adminId)

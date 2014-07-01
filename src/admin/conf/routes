@@ -42,10 +42,20 @@ GET     /Menu/edit/:id/                         Menu.Edit
 
 #管理员管理
 GET     /Admin/                              	Admin.Index
-#GET     /Admin/add/                          	Admin.Add
-#GET     /Admin/edit/:id/                        Admin.Edit
-#POST    /Admin/delete/                        	Admin.Delete
 GET     /Admin/:page/                           Admin.Index
+GET     /Admin/add/                          	Admin.Add
+GET     /Admin/edit/:id/                        Admin.Edit
+POST    /Admin/delete/                        	Admin.Delete
+
+#角色管理
+GET     /Role/                              	Role.Index
+GET     /Role/:page/                            Role.Index
+#GET     /Role/add/                          	Role.Add
+#GET     /Role/edit/:id/                         Role.Edit
+#GET     /Role/member/:id/:page/                 Role.Member
+#GET     /Role/member/:id/                       Role.Member
+#POST    /Role/delete/                        	Role.Delete
+#POST    /Role/setStatus/                        Role.setStatus
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

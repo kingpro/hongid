@@ -61,34 +61,44 @@ func GetSessionValue(key string, session revel.Session) string {
 
 //解析管理员ID
 func ParseAdminId(idStr string) (int64, bool) {
-	return parseInt(idStr)
+	return parseInt(idStr, "管理员ID")
 }
 
 //解析menuID
 func ParseMenuId(idStr string) (int64, bool) {
-	return parseInt(idStr)
+	return parseInt(idStr, "菜单ID")
 }
 
 //解析menu的order
 func ParseMenuOrder(orderStr string) (int64, bool) {
-	return parseInt(orderStr)
+	return parseInt(orderStr, "菜单排序")
 }
 
 //解析menu的display
 func ParseMenuDisplay(displayStr string) (int64, bool) {
-	return parseInt(displayStr)
+	return parseInt(displayStr, "菜单显示")
 }
 
 //解析分页page
 func ParsePage(pageStr string) (int64, bool) {
-	return parseInt(pageStr)
+	return parseInt(pageStr, "分页")
+}
+
+//解析roleID
+func ParseRoleId(idStr string) (int64, bool) {
+	return parseInt(idStr, "角色ID")
+}
+
+//解析启用Status
+func ParseStatus(status string) (int64, bool) {
+	return parseInt(status, "启用状态")
 }
 
 //解析string类型的int值
-func parseInt(intStr string) (int64, bool) {
+func parseInt(intStr, desc string) (int64, bool) {
 	intVal, err := strconv.ParseInt(intStr, 10, 64)
 	if err != nil {
-		revel.WARN.Printf("[%v]解析错误: %v", intStr, err)
+		revel.WARN.Printf("%v[%v]解析错误: %v",desc, intStr, err)
 		return intVal, false
 	}
 

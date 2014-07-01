@@ -81,7 +81,7 @@ func (P *Password) ValidatePassword(v *revel.Validation) {
 }
 
 //获取管理员列表
-func (a *Admin) GetByAll(RoleId int64, where map[string]string, Page int64, Perpage int64) ([]*Admin, template.HTML) {
+func (a *Admin) GetByAll(RoleId int64, Page int64, Perpage int64) ([]*Admin, template.HTML) {
 	admin_list := []*Admin{}
 
 	if RoleId > 0 {

@@ -10,6 +10,7 @@ import (
 	"admin/utils"
 	"admin/utils/Const"
 	"github.com/revel/revel"
+	"admin/app/controllers"
 )
 
 //个人信息更新：真实姓名，邮寄地址，系统语言
@@ -47,14 +48,15 @@ func (c *Admin) EditInfo(admin *models.Admin) revel.Result {
 			email := c.Params.Get("email")
 			if len(email) > 0 {
 				admin.Email = email
-				//验证邮件地址未被他人注册
-				if admin.HasEmail() {
-					c.Flash.Error("该邮件已经注册过!")
-					c.Flash.Out["url"] = "/EditInfo/"
-					return c.Redirect("/Message/")
-				}
 			} else {
-				c.Flash.Error("该邮件已经注册过!!")
+				c.Flash.Error("请输入E-mail!")
+				c.Flash.Out["url"] = "/EditInfo/"
+				return c.Redirect("/Message/")
+			}
+
+			//验证邮件地址未被他人注册
+			if admin.HasEmail() {
+				c.Flash.Error("该邮件已经注册过!")
 				c.Flash.Out["url"] = "/EditInfo/"
 				return c.Redirect("/Message/")
 			}
@@ -72,10 +74,7 @@ func (c *Admin) EditInfo(admin *models.Admin) revel.Result {
 			if admin.EditInfo(adminId) {
 
 				//******************************************
-				if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, c.Session)); ok {
-
-					admin := new(models.Admin)
-					admin_info := admin.GetById(adminId)
+				if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
 
 					//更新系统语言
 					c.Session[Const.C_Session_Lang] = admin_info.Lang

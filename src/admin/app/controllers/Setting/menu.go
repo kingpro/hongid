@@ -21,7 +21,7 @@ type Menu struct {
 func (c *Menu) Index(menu *models.Menu) revel.Result {
 
 	//获取管理员信息
-	if admin_info, ok := controllers.GetAdminInfoById(c.Session); ok {
+	if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
 		menus := menu.GetMenuHtml(admin_info)
 		c.Render(menus)
 	}
@@ -39,7 +39,7 @@ func (c *Menu) Add(menu *models.Menu) revel.Result {
 		if len(id) > 0 {
 			if menuId, ok := utils.ParseMenuId(id); ok {
 
-				if admin_info, ok := controllers.GetAdminInfoById(c.Session); ok {
+				if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
 
 					//返回菜单Option的HTML
 					menus := menu.GetMenuOptionHtml(menuId, admin_info)
@@ -49,7 +49,7 @@ func (c *Menu) Add(menu *models.Menu) revel.Result {
 				}
 			}
 		} else { //非子菜单
-			if admin_info, ok := controllers.GetAdminInfoById(c.Session); ok {
+			if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
 
 				//返回菜单Option的HTML
 				menus := menu.GetMenuOptionHtml(0, admin_info)
@@ -132,7 +132,7 @@ func (c *Menu) Add(menu *models.Menu) revel.Result {
 		if menu.Save() {
 			//******************************************
 			//管理员日志
-			if admin_info, ok := controllers.GetAdminInfoById(c.Session); ok {
+			if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
 
 				logs := new(models.Logs)
 				desc := "添加菜单:" + name + "|^|菜单管理"
@@ -176,7 +176,7 @@ func (c Menu) Delete(menu *models.Menu) revel.Result {
 		if menu.DelByID(menuId) {
 			//******************************************
 			//管理员日志
-			if admin_info, ok := controllers.GetAdminInfoById(c.Session); ok {
+			if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
 				logs := new(models.Logs)
 				desc := "删除菜单|^|ID:" + id
 				logs.Save(admin_info, c.Controller, desc)
@@ -205,7 +205,7 @@ func (c Menu) Edit(menu *models.Menu) revel.Result {
 				//获取菜单信息
 				menu_info := menu.GetById(menuId)
 
-				if admin_info, ok := controllers.GetAdminInfoById(c.Session); ok {
+				if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
 					//返回菜单Option的HTML
 					menus := menu.GetMenuOptionHtml(menu_info.Pid, admin_info)
 
@@ -215,7 +215,7 @@ func (c Menu) Edit(menu *models.Menu) revel.Result {
 				}
 			}
 		} else {
-			if admin_info, ok := controllers.GetAdminInfoById(c.Session); ok {
+			if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
 
 				//返回菜单Option的HTML
 				menus := menu.GetMenuOptionHtml(0, admin_info)
@@ -301,7 +301,7 @@ func (c Menu) Edit(menu *models.Menu) revel.Result {
 				if menu.Edit(menuId) {
 					//******************************************
 					//管理员日志
-					if admin_info, ok := controllers.GetAdminInfoById(c.Session); ok {
+					if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
 						logs := new(models.Logs)
 						desc := "编辑菜单:" + name + "|^|菜单管理|^|ID:" + id
 						logs.Save(admin_info, c.Controller, desc)
