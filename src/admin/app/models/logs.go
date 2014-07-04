@@ -56,7 +56,7 @@ func (L *Logs) Save(Admin_Info *Admin, c *revel.Controller, Desc string) bool {
 //清空日志
 //TODO 清空日志是将所有后台操作日志清空么？还是清空当前管理员日志？谁有清空的权限？
 func (L *Logs) DelAll() bool {
-	sql := "TRUNCATE `logs`;"
+	sql := "TRUNCATE `" + Write_prefix + "logs`;"
 	_, err := DB_Write.Exec(sql)
 	if err != nil {
 		revel.WARN.Printf("清空日志错误: %v", err)

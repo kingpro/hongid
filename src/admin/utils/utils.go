@@ -81,7 +81,13 @@ func ParseMenuDisplay(displayStr string) (int64, bool) {
 
 //解析分页page
 func ParsePage(pageStr string) (int64, bool) {
-	return parseInt(pageStr, "分页")
+	page := int64(1)
+	ok := false
+	if page, ok = parseInt(pageStr, "分页"); ok {
+		page = int64(1)
+	}
+
+	return page, ok
 }
 
 //解析roleID
@@ -94,12 +100,17 @@ func ParseStatus(status string) (int64, bool) {
 	return parseInt(status, "启用状态")
 }
 
-//解析string类型的int值
+//解析AnnounceID
+func ParseAnnounceId(aidStr string) (int64, bool) {
+	return parseInt(aidStr, "公告ID")
+}
+
+//解析strin类型的int值
 func parseInt(intStr, desc string) (int64, bool) {
 	intVal, err := strconv.ParseInt(intStr, 10, 64)
 	if err != nil {
 		revel.WARN.Printf("%v[%v]解析错误: %v",desc, intStr, err)
-		return intVal, false
+		return 0, false
 	}
 
 	return intVal, true

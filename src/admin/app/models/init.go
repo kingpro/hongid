@@ -24,6 +24,10 @@ var DB_Read *xorm.Engine
 //写数据
 var DB_Write *xorm.Engine
 
+//数据库前缀
+var Read_prefix string
+var Write_prefix string
+
 func init() {
 	revel.OnAppStart(InitDB)
 }
@@ -57,6 +61,7 @@ func InitDB() {
 		revel.WARN.Printf("DB_Read错误: %v", err)
 	}
 	DB_Read.SetTableMapper(core.NewPrefixMapper(core.SnakeMapper{}, read_prefix))
+	Read_prefix = read_prefix
 
 	write_driver, _ := c.String("database", "db.write.driver")
 	write_dbname, _ := c.String("database", "db.write.dbname")
@@ -70,6 +75,7 @@ func InitDB() {
 		revel.WARN.Printf("DB_Write错误: %v", err)
 	}
 	DB_Write.SetTableMapper(core.NewPrefixMapper(core.SnakeMapper{}, write_prefix))
+	Write_prefix = write_prefix
 
 	//缓存方式是存放到内存中，缓存struct的记录数为1000条
 	//cacher := xorm.NewLRUCacher(xorm.NewMemoryStore(), 1000)

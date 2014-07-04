@@ -42,20 +42,36 @@ GET     /Menu/edit/:id/                         Menu.Edit
 
 #管理员管理
 GET     /Admin/                              	Admin.Index
-GET     /Admin/:page/                           Admin.Index
 GET     /Admin/add/                          	Admin.Add
 GET     /Admin/edit/:id/                        Admin.Edit
 POST    /Admin/delete/                        	Admin.Delete
+GET     /Admin/:page/                           Admin.Index
 
 #角色管理
 GET     /Role/                              	Role.Index
+GET     /Role/add/                          	Role.Add
+GET     /Role/edit/:id/                         Role.Edit
+GET     /Role/member/:id/:page/                 Role.Member
+GET     /Role/member/:id/                       Role.Member
+POST    /Role/delete/                        	Role.Delete
+POST    /Role/setStatus/                        Role.setStatus
 GET     /Role/:page/                            Role.Index
-#GET     /Role/add/                          	Role.Add
-#GET     /Role/edit/:id/                         Role.Edit
-#GET     /Role/member/:id/:page/                 Role.Member
-#GET     /Role/member/:id/                       Role.Member
-#POST    /Role/delete/                        	Role.Delete
-#POST    /Role/setStatus/                        Role.setStatus
+
+#日志管理
+GET     /Logs/                              	Logs.Index
+GET     /Logs/:page/                            Logs.Index
+GET     /Logs/:search/:page/                  	Logs.Index
+GET     /Logs/DelAll/                           Logs.DelAll
+
+# 公告
+GET     /Announce/                              Announce.Index
+GET     /Announce/add/                          Announce.Add
+POST    /Announce/add/                          Announce.Add
+GET     /Announce/edit/:id/                     Announce.Edit
+POST    /Announce/edit/                         Announce.Edit
+#POST    /Announce/delete/                       Announce.Delete
+GET     /Announce/:page/                        Announce.Index
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

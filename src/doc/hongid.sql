@@ -188,3 +188,21 @@ INSERT INTO `menu` (`id`, `pid`, `name`, `enname`, `url`, `data`, `order`, `disp
 (31, 29, '管理会员组', 'Manage user group', 'Group', '', 50201, 1),
 (32, 7, '模板管理', 'Manage template', 'javascript:;', '', 70100, 1),
 (33, 32, '模板风格', 'Style template', 'Style', '', 70101, 1);
+
+
+--
+-- 表的结构 `announce`
+--
+
+CREATE TABLE IF NOT EXISTS `hd_announce` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '标题',
+  `content` text NOT NULL COMMENT '内容',
+  `starttime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '开始时间',
+  `endtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '结束时间',
+  `hits` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '点击数',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态',
+  `createtime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `cateid` (`status`,`endtime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

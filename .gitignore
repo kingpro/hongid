@@ -1,13 +1,25 @@
 # Package Files #
+*.o
 *.a
+*.so
+*.exe
+
+# Folders
+_obj
+_test
+
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
 
 .DS_Store
 .idea
 bin
 pkg
 hongId.iml
-code.google.com
-github.com
-tools
-gocms
-test.go
+src/code.google.com
+src/github.com
+src/tools
+src/gocms
+src/test
+*.log
