@@ -43,11 +43,12 @@ func isDigit(digit rune) bool {
 
 //======================================================================================================================
 //会员卡展示形式
-type EMemberCardDisPlayType uint32
+type EMemberCardDisPlayType uint16
 
 const (
 	EMemberCardDisPlayType_SPACE   EMemberCardDisPlayType = iota
-	EmemberCardDisplayType_DASH
+	EMemberCardDisplayType_DASH
+	EMemberCardDisplayType_COMMA
 )
 
 // 系统内部处理形式  --->  展示形式
@@ -60,8 +61,10 @@ func FmtToDisplay(card CardNumber, displayType EMemberCardDisPlayType) (string, 
 	switch displayType{
 	case EMemberCardDisPlayType_SPACE:
 		return fmt.Sprintf("%s %s %s %s %s", card[0:4], card[4:8], card[8:12], card[12:16], card[16:]), true
-	case EmemberCardDisplayType_DASH:
+	case EMemberCardDisplayType_DASH:
 		return fmt.Sprintf("%s-%s-%s-%s-%s", card[0:4], card[4:8], card[8:12], card[12:16], card[16:]), true
+	case EMemberCardDisplayType_COMMA:
+		return fmt.Sprintf("%s,%s,%s,%s,%s", card[0:4], card[4:8], card[8:12], card[12:16], card[16:]), true
 	default:
 		return string(card), true
 	}

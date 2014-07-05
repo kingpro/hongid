@@ -24,7 +24,14 @@ func TestFmtToDisplay1(t *testing.T) {
 
 func TestFmtToDisplay2(t *testing.T) {
 	card := CardNumber("6320860000000012343")
-	if strCard, _ := FmtToDisplay(card, EmemberCardDisplayType_DASH); strCard != "6320-8600-0000-0012-343" {
+	if strCard, _ := FmtToDisplay(card, EMemberCardDisplayType_DASH); strCard != "6320-8600-0000-0012-343" {
+		t.Errorf("Error: %v", strCard)
+	}
+}
+
+func TestFmtToDisplay3(t *testing.T) {
+	card := CardNumber("6320860000000012343")
+	if strCard, _ := FmtToDisplay(card, EMemberCardDisplayType_COMMA); strCard != "6320,8600,0000,0012,343" {
 		t.Errorf("Error: %v", strCard)
 	}
 }
