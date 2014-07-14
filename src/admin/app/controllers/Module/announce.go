@@ -9,7 +9,7 @@ import (
 	"admin/app/models"
 	"github.com/revel/revel"
 	"admin/utils"
-	"admin/utils/Const"
+	"admin/utils/consts"
 	"admin/app/controllers"
 )
 
@@ -39,10 +39,10 @@ func (c *Announce) Index(announce *models.Announce) revel.Result {
 //添加公告
 func (c *Announce) Add(announce *models.Announce) revel.Result {
 
-	if c.Request.Method == Const.C_Method_Get {
+	if c.Request.Method == consts.C_Method_Get {
 
 		return c.RenderTemplate("Module/Announce/Add.html")
-	} else if c.Request.Method == Const.C_Method_Post {
+	} else if c.Request.Method == consts.C_Method_Post {
 
 		title := c.Params.Get("title")
 		if len(title) > 0 {
@@ -124,7 +124,7 @@ func (c *Announce) Edit(announce *models.Announce) revel.Result {
 		announceId, _ = utils.ParseAnnounceId(id)
 	}
 
-	if c.Request.Method == Const.C_Method_Get {
+	if c.Request.Method == consts.C_Method_Get {
 
 		if len(id) > 0 {
 			announce_info := announce.GetById(announceId)
@@ -135,7 +135,7 @@ func (c *Announce) Edit(announce *models.Announce) revel.Result {
 		}
 
 		return c.RenderTemplate("Module/Announce/Edit.html")
-	} else if c.Request.Method == Const.C_Method_Post {
+	} else if c.Request.Method == consts.C_Method_Post {
 
 		if len(id) > 0 {
 

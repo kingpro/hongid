@@ -9,7 +9,7 @@ import (
 	"github.com/revel/revel"
 	"admin/app/models"
 	"admin/utils"
-	"admin/utils/Const"
+	"admin/utils/consts"
 	"admin/app/controllers"
 )
 
@@ -40,14 +40,14 @@ func (c *Admin) Index(admin *models.Admin) revel.Result {
 //添加管理员
 func (c *Admin) Add(admin *models.Admin) revel.Result {
 
-	if c.Request.Method == Const.C_Method_Get {
+	if c.Request.Method == consts.C_Method_Get {
 
 		role := new(models.Role)
 		role_list := role.GetRoleList()
 
 		c.Render(role_list)
 		return c.RenderTemplate("Setting/Admin/Add.html")
-	} else if c.Request.Method == Const.C_Method_Post {
+	} else if c.Request.Method == consts.C_Method_Post {
 
 		username := c.Params.Get("username")
 		if len(username) > 0 {
@@ -170,7 +170,7 @@ func (c *Admin) Add(admin *models.Admin) revel.Result {
 
 //编辑管理员
 func (c *Admin) Edit(admin *models.Admin) revel.Result {
-	if c.Request.Method == Const.C_Method_Get {
+	if c.Request.Method == consts.C_Method_Get {
 
 		role := new(models.Role)
 		role_list := role.GetRoleList()
@@ -187,7 +187,7 @@ func (c *Admin) Edit(admin *models.Admin) revel.Result {
 		}
 
 		return c.RenderTemplate("Setting/Admin/Edit.html")
-	} else if c.Request.Method == Const.C_Method_Post {
+	} else if c.Request.Method == consts.C_Method_Post {
 
 		id := c.Params.Get("id")
 

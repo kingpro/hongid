@@ -6,7 +6,7 @@
 package models
 
 import (
-	"admin/utils/Const"
+	"admin/utils/consts"
 	"github.com/revel/revel"
 	"html/template"
 	"strconv"
@@ -128,7 +128,7 @@ func (m *Menu) GetAdminMenu(Pid int64, Admin_Info *Admin) []*Menu {
 	//初始化菜单
 	menus := []*Menu{}
 
-	if Admin_Info.Id != Const.C_Founder_ID && len(Admin_Info.Role.Data) > 0 {
+	if Admin_Info.Id != consts.C_Founder_ID && len(Admin_Info.Role.Data) > 0 {
 		err := DB_Read.Where("Pid=? AND Display=? AND id in ("+Admin_Info.Role.Data+")", Pid, 1).Find(&menus)
 
 		if err != nil {
@@ -169,7 +169,7 @@ func (m *Menu) GetLeftMenuHtml(Pid int64, Admin_Info *Admin) template.HTML {
 
 	menus := make([]*Menu, 0)
 
-	if Admin_Info.Id != Const.C_Founder_ID && len(Admin_Info.Role.Data) > 0 {
+	if Admin_Info.Id != consts.C_Founder_ID && len(Admin_Info.Role.Data) > 0 {
 		err := DB_Read.Where("id in (" + Admin_Info.Role.Data + ")").Asc("order").Find(&menus)
 
 		if err != nil {

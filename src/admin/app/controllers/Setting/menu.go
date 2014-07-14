@@ -9,7 +9,7 @@ import (
 	"github.com/revel/revel"
 	"admin/app/models"
 	"admin/utils"
-	"admin/utils/Const"
+	"admin/utils/consts"
 	"admin/app/controllers"
 )
 
@@ -32,7 +32,7 @@ func (c *Menu) Index(menu *models.Menu) revel.Result {
 //添加菜单
 func (c *Menu) Add(menu *models.Menu) revel.Result {
 
-	if c.Request.Method == Const.C_Method_Get {
+	if c.Request.Method == consts.C_Method_Get {
 
 		id := c.Params.Get("id")
 		//添加子菜单
@@ -60,7 +60,7 @@ func (c *Menu) Add(menu *models.Menu) revel.Result {
 		}
 
 		return c.RenderTemplate("Setting/Menu/Add.html")
-	} else if c.Request.Method == Const.C_Method_Post {
+	} else if c.Request.Method == consts.C_Method_Post {
 
 		pid := c.Params.Get("pid")
 		if len(pid) > 0 {
@@ -197,7 +197,7 @@ func (c Menu) Delete(menu *models.Menu) revel.Result {
 //编辑菜单
 func (c Menu) Edit(menu *models.Menu) revel.Result {
 
-	if c.Request.Method == Const.C_Method_Get {
+	if c.Request.Method == consts.C_Method_Get {
 
 		id := c.Params.Get("id")
 		if len(id) > 0 {
@@ -225,7 +225,7 @@ func (c Menu) Edit(menu *models.Menu) revel.Result {
 			}
 		}
 		return c.RenderTemplate("Setting/Menu/Edit.html")
-	} else if c.Request.Method == Const.C_Method_Post {
+	} else if c.Request.Method == consts.C_Method_Post {
 
 		id := c.Params.Get("id")
 		if len(id) > 0 {

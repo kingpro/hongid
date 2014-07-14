@@ -1,9 +1,9 @@
-// Package: security
+// Package: algorith
 // File: rand.go
 // Created by mint
 // Useage: 随机数工具
 // DATE: 14-6-27 23:30
-package security
+package algorith
 
 import (
 	"bytes"
@@ -16,8 +16,8 @@ func RandomString(num int) string {
 	var result bytes.Buffer
 	var temp string
 	for i := 0; i < num; {
-		if string(RandomInt(65, 90)) != temp {
-			temp = string(RandomInt(65, 90))
+		if string(RandomInt64(65, 90)) != temp {
+			temp = string(RandomInt64(65, 90))
 			result.WriteString(temp)
 			i++
 		}
@@ -26,7 +26,7 @@ func RandomString(num int) string {
 }
 
 //生成随机数字
-func RandomInt(min int, max int) int {
+func RandomInt64(min, max int64) int64 {
 	rand.Seed(time.Now().UTC().UnixNano())
-	return min + rand.Intn(max-min)
+	return min + rand.Int63n(max-min)
 }

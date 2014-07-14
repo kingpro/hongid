@@ -8,7 +8,7 @@ import (
 	"os"
 	"runtime"
 	"strings"
-	"admin/utils/Const"
+	"admin/utils/consts"
 )
 
 type App struct {
@@ -32,10 +32,10 @@ func (c *App) Index(admin *models.Admin) revel.Result {
 		//管理员信息
 		c.RenderArgs["AdminInfo"] = admin_info
 		//是否锁屏
-		if c.Session[Const.C_Session_LockS] == "" || c.Session[Const.C_Session_LockS] == "0" {
-			c.RenderArgs[Const.C_Session_LockS] = Const.C_Lock_0
+		if c.Session[consts.C_Session_LockS] == "" || c.Session[consts.C_Session_LockS] == "0" {
+			c.RenderArgs[consts.C_Session_LockS] = consts.C_Lock_0
 		} else {
-			c.RenderArgs[Const.C_Session_LockS] = Const.C_Lock_1
+			c.RenderArgs[consts.C_Session_LockS] = consts.C_Lock_1
 		}
 	} else {
 		return c.Redirect("/Login/")

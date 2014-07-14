@@ -10,7 +10,7 @@ import (
 	"github.com/revel/revel"
 	"path/filepath"
 	"runtime"
-	"admin/utils/Const"
+	"admin/utils/consts"
 	"admin/utils"
 )
 
@@ -80,7 +80,7 @@ func CheckLogin(c *revel.Controller) revel.Result {
 //根据session中存储的AdminID，获取admin信息
 func GetAdminInfoBySession(session revel.Session) (*models.Admin, bool) {
 	admin := new(models.Admin)
-	if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, session)); ok {
+	if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(consts.C_Session_AdminID, session)); ok {
 		admin_info := admin.GetById(adminId)
 
 		return admin_info, true

@@ -8,21 +8,21 @@ package algorith
 import "testing"
 
 func TestGenerateChkDigit(t *testing.T) {
-	card := "7992739871"
+	card := "632086000000000001"
 	if b := GenLuhnCheckDigit([]byte(card)); b != 3 {
 		t.Errorf("Error: %v", b)
 	}
 }
 
 func TestValidateLuhn1(t *testing.T) {
-	card := "79927398713"
+	card := "6320860000000000013"
 	if !ValidateLuhn(card) {
 		t.Errorf("Error")
 	}
 }
 
 func TestValidateLuhn2(t *testing.T) {
-	card := "79927394713"
+	card := "6320860000000000011"
 	if ValidateLuhn(card) {
 		t.Errorf("Error")
 	}

@@ -65,7 +65,7 @@
   </script>
 
   <script>
-  // A stylesheet switcher for the test page. Not part of the highlight.js itself
+  // A stylesheet switcher for the tools.goEnv.test page. Not part of the highlight.js itself
   // (c) Vladimir Epifanov <voldmar@voldmar.ru>
   (function(container_id) {
       if (window.addEventListener) {
@@ -131,7 +131,7 @@
   </script>
 <body>
 
-<p>This page is a demo/test showing all languages supported by <a href="http://softwaremaniacs.org/soft/highlight/">highlight.js</a>.
+<p>This page is a demo/tools.goEnv.test showing all languages supported by <a href="http://softwaremaniacs.org/soft/highlight/">highlight.js</a>.
 Most of the code doesn't work :-).
 <p>You can see this page in several different styles bundled with the library or
 write your own (and contribute it back!)
@@ -178,11 +178,11 @@ class Zebra; def inspect; "X#{2 + self.object_id}" end end
 module ABC::DEF
   include Comparable
 
-  # @param test
+  # @param tools.goEnv.test
   # @return [String] nothing
-  def foo(test)
+  def foo(tools.goEnv.test)
     Thread.new do |blockvar|
-      ABC::DEF.reverse(:a_symbol, :'a symbol' + 'test' + test)
+      ABC::DEF.reverse(:a_symbol, :'a symbol' + 'tools.goEnv.test' + tools.goEnv.test)
     end.join
   end
 
@@ -464,7 +464,7 @@ local function create_signal()
     return setmetatable({}, signal_mt)
 end
 
--- Signal test
+-- Signal tools.goEnv.test
 local signal = create_signal()
 signal:register(function (signal, ...)
     print(...)
@@ -575,7 +575,7 @@ int main(int argc, char *argv[]) {
   for (unsigned i = 0; i &lt; 0xFFFF; i++)
     cout &lt;&lt; "Hello, World!" &lt;&lt; endl;
 
-  char c = '\n'; // just a test
+  char c = '\n'; // just a tools.goEnv.test
   map &lt;string, vector&lt;string&gt; &gt; m;
   m["key"] = "\\\\"; // yeah, I know it's an error
 }
@@ -708,7 +708,7 @@ DEFERRABLE INITIALLY DEFERRED;
 insert into "cicero_forum"
   ("slug", "name", "group", "ordering")
 values
-  ('test', 'Forum for te''sting', 'Test', 0);
+  ('tools.goEnv.test', 'Forum for te''sting', 'Test', 0);
 
 -- Test
 select count(*) from cicero_forum;
@@ -927,7 +927,7 @@ taskkill /F /IM proquota.exe /T
 
 sfc /SCANNOW
 
-set path = test
+set path = tools.goEnv.test
 
 xcopy %1\*.* %2
 </code></pre>

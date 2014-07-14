@@ -8,16 +8,16 @@ package Admin
 import (
 	"admin/app/models"
 	"admin/utils"
-	"admin/utils/Const"
+	"admin/utils/consts"
 	"github.com/revel/revel"
 	"utils/security"
 )
 
 //修改密码
 func (c *Admin) EditPwd(admin *models.Admin) revel.Result {
-	if c.Request.Method == Const.C_Method_Get {
+	if c.Request.Method == consts.C_Method_Get {
 
-		if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, c.Session)); ok {
+		if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(consts.C_Session_AdminID, c.Session)); ok {
 
 			admin_info := admin.GetById(adminId)
 
@@ -29,7 +29,7 @@ func (c *Admin) EditPwd(admin *models.Admin) revel.Result {
 		return c.RenderTemplate("Admin/EditPwd.html")
 	} else {
 
-		if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, c.Session)); ok {
+		if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(consts.C_Session_AdminID, c.Session)); ok {
 
 			admin_info := admin.GetById(adminId)
 

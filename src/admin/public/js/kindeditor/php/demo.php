@@ -31,7 +31,7 @@
 						self.sync();
 						K('form[name=example]')[0].submit();
 					});
-					K.ctrl(self.edit.doc, 13, function() {
+					K.ctrl(self.edit.admin.doc, 13, function() {
 						self.sync();
 						K('form[name=example]')[0].submit();
 					});

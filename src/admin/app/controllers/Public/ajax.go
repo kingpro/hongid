@@ -7,7 +7,7 @@ package Public
 
 import (
 	"admin/app/models"
-	"admin/utils/Const"
+	"admin/utils/consts"
 	"github.com/dchest/captcha"
 	"github.com/revel/revel"
 	"utils/security"
@@ -28,9 +28,9 @@ func (c *Ajax) GetCaptcha() revel.Result {
 func (c *Ajax) ScreenLock() revel.Result {
 	data := make(map[string]string)
 
-	c.Session[Const.C_Session_LockS] = Const.C_Lock_1
+	c.Session[consts.C_Session_LockS] = consts.C_Lock_1
 
-	data["status"] = Const.C_Lock_1
+	data["status"] = consts.C_Lock_1
 	data["message"] = "锁屏!"
 	return c.RenderJson(data)
 }
@@ -40,22 +40,22 @@ func (c *Ajax) ScreenUnlock(admin *models.Admin) revel.Result {
 	lock_password := c.Params.Get("lock_password")
 
 	if lock_password == "" || len(lock_password) <= 0 {
-		return c.RenderText(Const.C_UnLock_2)
+		return c.RenderText(consts.C_UnLock_2)
 	}
 
-	if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, c.Session)); ok {
+	if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(consts.C_Session_AdminID, c.Session)); ok {
 
 		admin_info := admin.GetById(adminId)
 
 		if !security.CompareHashAndPassword(admin_info.Password, lock_password) {
-			return c.RenderText(Const.C_UnLock_3)
+			return c.RenderText(consts.C_UnLock_3)
 		} else {
-			c.Session[Const.C_Session_LockS] = Const.C_Lock_0
-			return c.RenderText(Const.C_UnLock_1)
+			c.Session[consts.C_Session_LockS] = consts.C_Lock_0
+			return c.RenderText(consts.C_UnLock_1)
 		}
 	}
 
-	return c.RenderText(Const.C_UnLock_4)
+	return c.RenderText(consts.C_UnLock_4)
 }
 
 //当前位置
@@ -63,7 +63,7 @@ func (c *Ajax) Pos(menu *models.Menu) revel.Result {
 	id := c.Params.Get("id")
 
 	if menuId, ok := utils.ParseMenuId(id); ok {
-		if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, c.Session)); ok {
+		if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(consts.C_Session_AdminID, c.Session)); ok {
 			//获取登陆用户信息
 			admin := new(models.Admin)
 			admin_info := admin.GetById(adminId)
@@ -89,7 +89,7 @@ func (c *Ajax) GetMessage() revel.Result {
 //获取快捷方式
 func (c *Ajax) GetPanel(admin_panel *models.AdminPanel) revel.Result {
 
-	if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, c.Session)); ok {
+	if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(consts.C_Session_AdminID, c.Session)); ok {
 
 		mid := c.Params.Get("mid")
 		if menuId, ok := utils.ParseMenuId(mid); ok {
@@ -117,7 +117,7 @@ func (c *Ajax) GetPanel(admin_panel *models.AdminPanel) revel.Result {
 //添加快捷方式
 func (c *Ajax) AddPanel(admin_panel *models.AdminPanel) revel.Result {
 
-	if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, c.Session)); ok {
+	if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(consts.C_Session_AdminID, c.Session)); ok {
 
 		mid := c.Params.Get("mid")
 		if menuId, ok := utils.ParseMenuId(mid); ok {
@@ -163,7 +163,7 @@ const (
 func (c *Ajax) DelPanel(admin_panel *models.AdminPanel) revel.Result {
 
 	data := make(map[string]string)
-	if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, c.Session)); ok {
+	if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(consts.C_Session_AdminID, c.Session)); ok {
 
 		mid := c.Params.Get("mid")
 		if menuId, ok := utils.ParseMenuId(mid); ok {

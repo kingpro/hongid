@@ -7,7 +7,7 @@ package Admin
 
 import (
 	"admin/app/models"
-	"admin/utils/Const"
+	"admin/utils/consts"
 	"fmt"
 	"github.com/dchest/captcha"
 	"github.com/revel/revel"
@@ -17,10 +17,10 @@ import (
 //登陆
 func (c *Admin) Login(admin *models.Admin) revel.Result {
 
-	if c.Request.Method == Const.C_Method_Get {
+	if c.Request.Method == consts.C_Method_Get {
 		CaptchaId := captcha.NewLen(6)
 		return c.Render(CaptchaId)
-	} else if c.Request.Method == Const.C_Method_Post {
+	} else if c.Request.Method == consts.C_Method_Post {
 
 		username := c.Params.Get("username")
 		password := c.Params.Get("password")
@@ -30,7 +30,7 @@ func (c *Admin) Login(admin *models.Admin) revel.Result {
 
 		data := make(map[string]string)
 
-		if LANG, ok := c.Session[Const.C_Session_Lang]; ok {
+		if LANG, ok := c.Session[consts.C_Session_Lang]; ok {
 			//设置语言
 			c.Request.Locale = LANG
 		} else {
@@ -72,18 +72,18 @@ func (c *Admin) Login(admin *models.Admin) revel.Result {
 			data["status"] = "0"
 			data["url"] = "/"
 			data["message"] = c.Message("admin_username_error")
-		} else if admin_info.Status == 0 && admin_info.Id != Const.C_Founder_ID {
+		} else if admin_info.Status == 0 && admin_info.Id != consts.C_Founder_ID {
 			data["status"] = "0"
 			data["url"] = "/"
 			data["message"] = c.Message("admin_forbid_login")
-		} else if admin_info.Role.Status == 0 && admin_info.Id != Const.C_Founder_ID {
+		} else if admin_info.Role.Status == 0 && admin_info.Id != consts.C_Founder_ID {
 			data["status"] = "0"
 			data["url"] = "/"
 			data["message"] = c.Message("admin_forbid_role_login")
 			//TODO 密码加密解密
 		} else if username == admin_info.Username && security.CompareHashAndPassword(admin_info.Password, password) {
-			c.Session[Const.C_Session_AdminID] = fmt.Sprintf("%d", admin_info.Id)
-			c.Session[Const.C_Session_Lang] = admin_info.Lang
+			c.Session[consts.C_Session_AdminID] = fmt.Sprintf("%d", admin_info.Id)
+			c.Session[consts.C_Session_Lang] = admin_info.Lang
 
 			c.Flash.Success(c.Message("login_success"))
 			c.Flash.Out["url"] = "/"

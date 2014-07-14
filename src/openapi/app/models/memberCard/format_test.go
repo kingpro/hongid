@@ -1,4 +1,4 @@
-// Package: memberCard
+// Package: openapi.app.models.memberCard
 // File: format_test.go
 // Created by mint
 // Useage: format测试类

@@ -8,17 +8,17 @@ package Admin
 import (
 	"admin/app/models"
 	"admin/utils"
-	"admin/utils/Const"
+	"admin/utils/consts"
 	"github.com/revel/revel"
 	"admin/app/controllers"
 )
 
 //个人信息更新：真实姓名，邮寄地址，系统语言
 func (c *Admin) EditInfo(admin *models.Admin) revel.Result {
-	if c.Request.Method == Const.C_Method_Get {
+	if c.Request.Method == consts.C_Method_Get {
 		title := "个人信息--HongID后台管理系统"
 
-		if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, c.Session)); ok {
+		if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(consts.C_Session_AdminID, c.Session)); ok {
 			admin_info := admin.GetById(adminId)
 			c.Render(title, admin_info)
 		} else {
@@ -27,10 +27,10 @@ func (c *Admin) EditInfo(admin *models.Admin) revel.Result {
 
 		return c.RenderTemplate("Admin/EditInfo.html")
 
-	} else if c.Request.Method == Const.C_Method_Post {
+	} else if c.Request.Method == consts.C_Method_Post {
 
 		//当用户登陆之后再验证其他输入信息是否正确
-		if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(Const.C_Session_AdminID, c.Session)); ok {
+		if adminId, ok := utils.ParseAdminId(utils.GetSessionValue(consts.C_Session_AdminID, c.Session)); ok {
 
 			//ID
 			admin.Id = adminId
@@ -77,7 +77,7 @@ func (c *Admin) EditInfo(admin *models.Admin) revel.Result {
 				if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
 
 					//更新系统语言
-					c.Session[Const.C_Session_Lang] = admin_info.Lang
+					c.Session[consts.C_Session_Lang] = admin_info.Lang
 
 					//管理员日志
 					logs := new(models.Logs)
@@ -85,7 +85,7 @@ func (c *Admin) EditInfo(admin *models.Admin) revel.Result {
 					logs.Save(admin_info, c.Controller, desc)
 				}
 
-				if LANG, ok := c.Session[Const.C_Session_Lang]; ok {
+				if LANG, ok := c.Session[consts.C_Session_Lang]; ok {
 					//设置语言
 					c.Request.Locale = LANG
 				} else {

@@ -1,4 +1,4 @@
-// Package: memberCard
+// Package: openapi.app.models.memberCard
 // File: trim.go
 // Created by mint
 // Useage: 格式化

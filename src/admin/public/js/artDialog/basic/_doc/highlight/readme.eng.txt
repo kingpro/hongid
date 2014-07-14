@@ -139,7 +139,7 @@ Perl ("perl"):
   sub              subroutine header (from "sub" till "{")
   variable         variable starting with "$", "%", "@"
   operator         operator
-  pod              plain old doc
+  pod              plain old admin.doc
 
 PHP ("php"):
 

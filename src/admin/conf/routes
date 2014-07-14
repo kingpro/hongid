@@ -72,6 +72,23 @@ POST    /Announce/edit/                         Announce.Edit
 #POST    /Announce/delete/                       Announce.Delete
 GET     /Announce/:page/                        Announce.Index
 
+#会员管理
+#GET     /Member/                              	Member.Index
+#GET     /Member/add/                            Member.Add
+#GET     /Member/edit/:id/                       Member.Edit
+#GET     /Member/MemberInfo/:id/                 Member.MemberInfo
+#POST    /Member/delete/                         Member.Delete
+#POST    /Member/lock/                     		Member.Lock
+#POST    /Member/unlock/                     	Member.Unlock
+#POST    /Member/move/                     		Member.Move
+#GET     /Member/:page/                          Member.Index
+#GET     /Member/:search/:page/                  Member.Index
+
+#会员组管理
+#GET     /Group/                              	Group.Index
+#GET     /Group/add/                             Group.Add
+#GET     /Group/edit/:id/                        Group.Edit
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -14,28 +14,33 @@ import (
 	"github.com/revel/revel"
 	"os"
 	"strings"
+	"utils/mail"
 )
 
 //数据库连接
+var (
+	//读数据
+	DB_Read *xorm.Engine
+	//写数据
+	DB_Write *xorm.Engine
+	//数据库前缀
+	Read_prefix string
+	Write_prefix string
+)
 
-//读数据
-var DB_Read *xorm.Engine
-
-//写数据
-var DB_Write *xorm.Engine
-
-//数据库前缀
-var Read_prefix string
-var Write_prefix string
+//SMTP
+var (
+	//系统发信
+	SysMailer  *mail.Mailer
+)
 
 func init() {
-	revel.OnAppStart(InitDB)
+	revel.OnAppStart(initDB)
+	revel.OnAppStart(initSmtp)
 }
 
 //初始化数据库
-func InitDB() {
-
-	revel.TRACE.Println("初始化DB")
+func initDB() {
 
 	//设置系统分隔符
 	separator := "/"
@@ -97,4 +102,33 @@ func InitDB() {
 	//控制台打印警告信息
 	//DB_Read.ShowWarn = true
 	//DB_Read.ShowWarn = true
+}
+
+func initSmtp() {
+
+	//设置系统分隔符
+	separator := "/"
+	if os.IsPathSeparator('\\') {
+		separator = "\\"
+	}
+
+	config_file := (revel.BasePath + "/conf/smtp.conf")
+	config_file = strings.Replace(config_file, "/", separator, -1)
+	c, _ := config.ReadDefault(config_file)
+
+	sys_server, _ := c.String("smtp", "smtp.server")
+	sys_port, _ := c.Int("smtp", "smtp.port")
+	sys_userName, _ := c.String("smtp", "smtp.username")
+	sys_passWord, _ := c.String("smtp", "smtp.password")
+	sys_host, _ := c.String("smtp", "smtp.host")
+
+	//配置系统发信
+	SysMailer = &mail.Mailer{
+		Server:     sys_server,
+		Port:       sys_port,
+		UserName:   sys_userName,
+		Password:   sys_passWord,
+		Host:       sys_host,
+	}
+
 }

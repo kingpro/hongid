@@ -9,7 +9,7 @@ import (
 	"github.com/revel/revel"
 	"admin/utils"
 	"admin/app/models"
-	"admin/utils/Const"
+	"admin/utils/consts"
 	"admin/app/controllers"
 )
 
@@ -66,7 +66,7 @@ func (c *Role) Member(role *models.Role) revel.Result {
 
 //添加角色
 func (c *Role) Add(role *models.Role) revel.Result {
-	if c.Request.Method == Const.C_Method_Get {
+	if c.Request.Method == consts.C_Method_Get {
 		if admin_info, ok := controllers.GetAdminInfoBySession(c.Session); ok {
 			menu := new(models.Menu)
 			tree := menu.GetMenuTree("", admin_info)
@@ -77,7 +77,7 @@ func (c *Role) Add(role *models.Role) revel.Result {
 		}
 
 		return c.RenderTemplate("Setting/Role/Add.html")
-	} else if c.Request.Method == Const.C_Method_Post {
+	} else if c.Request.Method == consts.C_Method_Post {
 
 		rolename := c.Params.Get("rolename")
 		if len(rolename) > 0 {
@@ -159,7 +159,7 @@ func (c *Role) Edit(role *models.Role) revel.Result {
 		roleId, _ = utils.ParseRoleId(id)
 	}
 
-	if c.Request.Method == Const.C_Method_Get {
+	if c.Request.Method == consts.C_Method_Get {
 
 
 		if len(id) > 0 {
@@ -176,7 +176,7 @@ func (c *Role) Edit(role *models.Role) revel.Result {
 			c.Render(tree)
 		}
 		return c.RenderTemplate("Setting/Role/Edit.html")
-	} else if c.Request.Method == Const.C_Method_Post {
+	} else if c.Request.Method == consts.C_Method_Post {
 
 		if len(id) > 0 {
 

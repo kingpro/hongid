@@ -206,3 +206,20 @@ CREATE TABLE IF NOT EXISTS `hd_announce` (
   PRIMARY KEY (`id`),
   KEY `cateid` (`status`,`endtime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `hd_mailqueue` (
+  `mailid` int(11) NOT NULL AUTO_INCREMENT,
+  `toid` int(11) NOT NULL,
+  `tomail` varchar(255) NOT NULL,
+  `frommail` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `charset` varchar(255) NOT NULL,
+  `htmlon` tinyint(4) NOT NULL,
+  `level` tinyint(4) NOT NULL,
+  `dateline` bigint(20) NOT NULL,
+  `failures` int(11) NOT NULL,
+  PRIMARY KEY (`mailid`),
+  KEY `toid` (`toid`),
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

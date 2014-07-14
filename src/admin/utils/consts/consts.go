@@ -1,9 +1,9 @@
-// Package: Const
+// Package: consts
 // File: const.go
 // Created by mint
 // Useage: 常量类
 // DATE: 14-6-28 17:50
-package Const
+package consts
 
 //解锁类型
 const (
