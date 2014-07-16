@@ -7,11 +7,11 @@ package controllers
 
 import (
 	"admin/app/models"
+	"admin/utils"
+	"admin/utils/consts"
 	"github.com/revel/revel"
 	"path/filepath"
 	"runtime"
-	"admin/utils/consts"
-	"admin/utils"
 )
 
 var BasePath, _ = filepath.Abs("")

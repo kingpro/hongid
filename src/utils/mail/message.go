@@ -5,11 +5,11 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"github.com/revel/revel"
 	"mime/multipart"
 	"strings"
 	"time"
 	"unicode/utf8"
-	"github.com/revel/revel"
 )
 
 var NewLine string = "\r\n"

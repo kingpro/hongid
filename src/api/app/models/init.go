@@ -6,21 +6,21 @@
 package models
 
 import (
-	"utils/mail"
-	"github.com/revel/revel"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/revel/config"
-	_"github.com/go-sql-driver/mysql"
-	"strings"
+	"github.com/revel/revel"
 	"os"
+	"strings"
 	"utils/db"
 	"utils/errors"
+	"utils/mail"
 )
 
 //SMTP
 var (
 	//系统发信
-	SysMailer  *mail.Mailer
+	SysMailer *mail.Mailer
 )
 
 //数据库连接
@@ -60,7 +60,7 @@ func initDB() {
 
 	//数据库连接
 	var err errors.GlobalWaysError
-	err = ReaderEngine.Connect(read_driver, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s", read_user, read_password, read_host, read_dbName,read_encoding))
+	err = ReaderEngine.Connect(read_driver, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s", read_user, read_password, read_host, read_dbName, read_encoding))
 	if err.IsError() {
 		revel.WARN.Printf("数据库连接错误: %v", errors.DefaultError(err))
 		os.Exit(-1)
@@ -80,4 +80,3 @@ func initDB() {
 	}
 
 }
-

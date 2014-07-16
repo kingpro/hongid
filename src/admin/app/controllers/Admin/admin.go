@@ -6,11 +6,11 @@
 package Admin
 
 import (
-	"github.com/revel/revel"
+	"admin/app/controllers"
 	"admin/app/models"
 	"admin/utils"
 	"admin/utils/consts"
-	"admin/app/controllers"
+	"github.com/revel/revel"
 )
 
 type Admin struct {
@@ -181,7 +181,7 @@ func (c *Admin) Edit(admin *models.Admin) revel.Result {
 			if adminId, ok := utils.ParseAdminId(id); ok {
 				admin_info := admin.GetById(adminId)
 				c.Render(admin_info, role_list)
-		}
+			}
 		} else {
 			c.Render(role_list)
 		}
@@ -300,7 +300,6 @@ func (c *Admin) Edit(admin *models.Admin) revel.Result {
 
 	return c.Render()
 }
-
 
 const (
 	C_AdminDel_Fail string = "0"

@@ -6,11 +6,11 @@
 package Role
 
 import (
-	"github.com/revel/revel"
-	"admin/utils"
-	"admin/app/models"
-	"admin/utils/consts"
 	"admin/app/controllers"
+	"admin/app/models"
+	"admin/utils"
+	"admin/utils/consts"
+	"github.com/revel/revel"
 )
 
 type Role struct {
@@ -48,7 +48,7 @@ func (c *Role) Member(role *models.Role) revel.Result {
 			admin := new(models.Admin)
 
 			if len(page) > 0 {
-				if Page, ok := utils.ParsePage(page);ok {
+				if Page, ok := utils.ParsePage(page); ok {
 					admin_list, pages := admin.GetByAll(RoleId, Page, 10)
 					c.Render(admin_list, pages)
 				}
@@ -160,7 +160,6 @@ func (c *Role) Edit(role *models.Role) revel.Result {
 	}
 
 	if c.Request.Method == consts.C_Method_Get {
-
 
 		if len(id) > 0 {
 			role_info := role.GetById(roleId)

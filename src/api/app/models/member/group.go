@@ -6,29 +6,33 @@
 package member
 
 import (
-	"time"
-	"utils/times"
-	"openapi/app/models"
+	"api/app/models"
 	"github.com/revel/revel"
+	"time"
 	"utils/errors"
+	"utils/times"
+)
+
+const (
+	CMemberGroup_GasStation_ID int64 = 1 //加油站会员组ID，默认(固定)：1
 )
 
 type EMemberGroupStatus byte
 
 const (
-	EMemberGroupStatus_Enable  EMemberGroupStatus = iota
+	EMemberGroupStatus_Enable EMemberGroupStatus = iota
 	EMemberGroupStatus_Distable
 	EMemberGroupStatus_Del
 )
 
 type MemberGroup struct {
-	Id                int64
-	GroupName         string `xorm:"varchar(20) unique"`
-	GroupDesc         string
-	Contribution      uint32    //会费
-	Status            EMemberGroupStatus   `xorm:"tinyint(1)"`
-	CreateTime        string `xorm:"DateTime created"`
-	UpdateTime        string `xorm:"DateTime updated"`
+	Id           int64
+	GroupName    string `xorm:"varchar(20) unique"`
+	GroupDesc    string
+	Contribution uint32             //会费
+	Status       EMemberGroupStatus `xorm:"tinyint(1)"`
+	CreateTime   string             `xorm:"DateTime created"`
+	UpdateTime   string             `xorm:"DateTime updated"`
 }
 
 func NewMemberGroup(name, desc string, contribution uint32) *MemberGroup {

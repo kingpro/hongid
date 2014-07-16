@@ -21,10 +21,10 @@ CREATE TABLE IF NOT EXISTS `mailqueue` (
   PRIMARY KEY (`mailid`),
   KEY `toid` (`toid`),
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
- */
+*/
 
 type MailQueue struct {
-	MailId   int64 `xorm:"pk autoincr"`
+	MailId   int64  `xorm:"pk autoincr"`
 	ToId     string `xorm:"notnull char(19) index"`
 	ToMail   string `xorm:"varchar(255) index"`
 	FromMail string `xorm:"varchar(255) index"`
@@ -35,4 +35,3 @@ type MailQueue struct {
 	Status   bool
 	DateLine string `xorm:"DateTime"`
 }
-

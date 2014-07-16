@@ -6,10 +6,10 @@
 package Admin
 
 import (
-	"admin/app/models"
-	"github.com/revel/revel"
-	"admin/utils"
 	"admin/app/controllers"
+	"admin/app/models"
+	"admin/utils"
+	"github.com/revel/revel"
 )
 
 //左侧导航菜单

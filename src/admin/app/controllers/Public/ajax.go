@@ -7,11 +7,11 @@ package Public
 
 import (
 	"admin/app/models"
+	"admin/utils"
 	"admin/utils/consts"
 	"github.com/dchest/captcha"
 	"github.com/revel/revel"
 	"utils/security"
-	"admin/utils"
 )
 
 type Ajax struct {
@@ -113,7 +113,6 @@ func (c *Ajax) GetPanel(admin_panel *models.AdminPanel) revel.Result {
 	return c.RenderText(Html)
 }
 
-
 //添加快捷方式
 func (c *Ajax) AddPanel(admin_panel *models.AdminPanel) revel.Result {
 
@@ -154,9 +153,9 @@ func (c *Ajax) AddPanel(admin_panel *models.AdminPanel) revel.Result {
 }
 
 const (
-	C_PanelDel_Succ  string = "0"
-	C_PanelDel_NotLogin  string = "1"
-	C_PanelDel_Fail  string = "2"
+	C_PanelDel_Succ     string = "0"
+	C_PanelDel_NotLogin string = "1"
+	C_PanelDel_Fail     string = "2"
 )
 
 //删除快捷方式

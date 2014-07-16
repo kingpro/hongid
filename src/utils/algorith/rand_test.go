@@ -11,7 +11,7 @@ func TestRandInt64(t *testing.T) {
 	min := int64(0)
 	max := int64(999999999999)
 	rand := RandomInt64(min, max)
-	if rand < min || rand >max {
+	if rand < min || rand > max {
 		t.Errorf("Error:%v", rand)
 	}
 }

@@ -3,12 +3,12 @@ package controllers
 //后台首页
 import (
 	"admin/app/models"
+	"admin/utils/consts"
 	"github.com/revel/config"
 	"github.com/revel/revel"
 	"os"
 	"runtime"
 	"strings"
-	"admin/utils/consts"
 )
 
 type App struct {

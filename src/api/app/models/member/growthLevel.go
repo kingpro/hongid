@@ -6,8 +6,8 @@
 package member
 
 type GrowthSystem struct {
-	Id            int64
-	LevelName     string
-	LevelPoints   uint32
-	LevelDesc     string
+	Id          int64
+	LevelName   string
+	LevelPoints uint32
+	LevelDesc   string
 }

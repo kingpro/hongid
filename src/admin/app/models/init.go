@@ -24,14 +24,14 @@ var (
 	//写数据
 	DB_Write *xorm.Engine
 	//数据库前缀
-	Read_prefix string
+	Read_prefix  string
 	Write_prefix string
 )
 
 //SMTP
 var (
 	//系统发信
-	SysMailer  *mail.Mailer
+	SysMailer *mail.Mailer
 )
 
 func init() {
@@ -124,11 +124,11 @@ func initSmtp() {
 
 	//配置系统发信
 	SysMailer = &mail.Mailer{
-		Server:     sys_server,
-		Port:       sys_port,
-		UserName:   sys_userName,
-		Password:   sys_passWord,
-		Host:       sys_host,
+		Server:   sys_server,
+		Port:     sys_port,
+		UserName: sys_userName,
+		Password: sys_passWord,
+		Host:     sys_host,
 	}
 
 }

@@ -6,11 +6,11 @@
 package Admin
 
 import (
+	"admin/app/controllers"
 	"admin/app/models"
 	"admin/utils"
 	"admin/utils/consts"
 	"github.com/revel/revel"
-	"admin/app/controllers"
 )
 
 //个人信息更新：真实姓名，邮寄地址，系统语言

@@ -20,7 +20,7 @@ Luhn算法会通过校验码对一串数字进行验证，校验码通常会被�
 计算所有数字的和（67）；
 乘以9（603）；
 取其个位数字（3），得到校验位。
- */
+*/
 // DATE: 14-7-3 17:41
 package algorith
 
@@ -32,7 +32,7 @@ func ValidateLuhn(s string) bool {
 	bytes := []byte(s)
 	digit, _ := strconv.ParseUint(string(bytes[len(bytes)-1]), 10, 8)
 
-	if GenLuhnCheckDigit(bytes[0:len(bytes) - 1]) == byte(digit) {
+	if GenLuhnCheckDigit(bytes[0:len(bytes)-1]) == byte(digit) {
 		return true
 	}
 
@@ -46,7 +46,7 @@ func GenLuhnCheckDigit(byteDigit []byte) byte {
 	bOdd := true
 	for i := len(byteDigit) - 1; i >= 0; i-- {
 		bit, _ := strconv.ParseUint(string(byteDigit[i]), 10, 8)
-	  	if bOdd {
+		if bOdd {
 			chkSum += sumBitsAndTen(uint8(bit) * 2)
 		} else {
 			chkSum += uint8(bit)
@@ -55,9 +55,9 @@ func GenLuhnCheckDigit(byteDigit []byte) byte {
 		bOdd = !bOdd
 	}
 
-	return 10 - (chkSum%10)
+	return 10 - (chkSum % 10)
 }
 
 func sumBitsAndTen(b uint8) uint8 {
-	return (b/10) + (b%10)
+	return (b / 10) + (b % 10)
 }

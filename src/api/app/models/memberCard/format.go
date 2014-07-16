@@ -6,8 +6,8 @@
 package memberCard
 
 import (
-	"unicode"
 	"fmt"
+	"unicode"
 )
 
 // 展示型的数据 ---> 系统内部处理形式
@@ -46,7 +46,7 @@ func isDigit(digit rune) bool {
 type EMemberCardDisPlayType uint16
 
 const (
-	EMemberCardDisPlayType_SPACE   EMemberCardDisPlayType = iota
+	EMemberCardDisPlayType_SPACE EMemberCardDisPlayType = iota
 	EMemberCardDisplayType_DASH
 	EMemberCardDisplayType_COMMA
 )
@@ -58,7 +58,7 @@ const (
 func FmtToDisplay(card CardNumber, displayType EMemberCardDisPlayType) (string, bool) {
 	//TODO 会员卡的展示形式扩展
 
-	switch displayType{
+	switch displayType {
 	case EMemberCardDisPlayType_SPACE:
 		return fmt.Sprintf("%s %s %s %s %s", card[0:4], card[4:8], card[8:12], card[12:16], card[16:]), true
 	case EMemberCardDisplayType_DASH:
@@ -71,6 +71,3 @@ func FmtToDisplay(card CardNumber, displayType EMemberCardDisPlayType) (string, 
 
 	return "", false
 }
-
-
-

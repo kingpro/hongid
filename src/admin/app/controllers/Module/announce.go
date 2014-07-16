@@ -6,11 +6,11 @@
 package Module
 
 import (
+	"admin/app/controllers"
 	"admin/app/models"
-	"github.com/revel/revel"
 	"admin/utils"
 	"admin/utils/consts"
-	"admin/app/controllers"
+	"github.com/revel/revel"
 )
 
 type Announce struct {
@@ -108,7 +108,7 @@ func (c *Announce) Add(announce *models.Announce) revel.Result {
 			c.Flash.Out["url"] = "/Announce/add/"
 			return c.Redirect("/Message/")
 		}
-	}else {
+	} else {
 
 	}
 

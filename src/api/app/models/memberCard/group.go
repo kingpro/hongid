@@ -7,8 +7,8 @@ package memberCard
 
 type CardGroup struct {
 	Id         int64
-	GroupName  string  `xorm:"varchar(20) unique"`
-	GroupEName string  `xorm:"varchar(20) unique"`
+	GroupName  string `xorm:"varchar(20) unique"`
+	GroupEName string `xorm:"varchar(20) unique"`
 	GroupDesc  string
 	Points     uint32
 }
@@ -47,9 +47,9 @@ func (g *CardGroup) SetCardGroupPoints(points uint32) {
 
 func NewCardGroup(name, ename, desc string, points uint32) *CardGroup {
 	return &CardGroup{
-		GroupName:   name,
-		GroupEName:  ename,
-		GroupDesc:   desc,
-		Points:      points,
+		GroupName:  name,
+		GroupEName: ename,
+		GroupDesc:  desc,
+		Points:     points,
 	}
 }

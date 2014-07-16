@@ -6,10 +6,10 @@
 package logs
 
 import (
+	"admin/app/controllers"
+	"admin/app/models"
 	"admin/utils"
 	"github.com/revel/revel"
-	"admin/app/models"
-	"admin/app/controllers"
 )
 
 type Logs struct {

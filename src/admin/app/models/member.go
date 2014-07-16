@@ -4,6 +4,7 @@
 // Useage: 会员
 // DATE: 14-7-7 13:49
 package models
+
 /*
 import (
 	"github.com/revel/revel"

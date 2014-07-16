@@ -14,7 +14,7 @@
 7	石油和其他未来行业使用
 8	医疗、电信和其他未来行业使用
 9	由本国标准机构分配
- */
+*/
 // DATE: 14-7-4 15:30
 package memberCard
 
@@ -26,11 +26,11 @@ import (
 type CardNumber string
 
 type MemberCard struct {
-	MII      byte      // 1     主要产业标识符（Major Industry Identifier (MII)）
-	CPI      byte      // 2-3   公司标识符，默认: 32
-	CDI      uint16    // 4-6   国家域标识符（Country Domain Identifier）
-	PII      uint64    // 7-18  个人信息标识（Personal identifying information）
-	IVC      byte      // 19    验证码标识（Identity verification code）
+	MII byte   // 1     主要产业标识符（Major Industry Identifier (MII)）
+	CPI byte   // 2-3   公司标识符，默认: 32
+	CDI uint16 // 4-6   国家域标识符（Country Domain Identifier）
+	PII uint64 // 7-18  个人信息标识（Personal identifying information）
+	IVC byte   // 19    验证码标识（Identity verification code）
 }
 
 func (c *MemberCard) GetMII() byte {
@@ -60,11 +60,11 @@ func (c *MemberCard) SetIVC(code byte) {
 // 新建会员卡
 func NewMemberCard(mii, cpi byte, cdi uint16, pii uint64) *MemberCard {
 	return &MemberCard{
-		MII:   mii,
-		CPI:   cpi,
-		CDI:   cdi,
-		PII:   pii,
-		IVC:   algorith.GenLuhnCheckDigit([]byte(fmt.Sprintf("%v%v%.*d%.*d", mii, cpi, 3, cdi, 12, pii))),
+		MII: mii,
+		CPI: cpi,
+		CDI: cdi,
+		PII: pii,
+		IVC: algorith.GenLuhnCheckDigit([]byte(fmt.Sprintf("%v%v%.*d%.*d", mii, cpi, 3, cdi, 12, pii))),
 	}
 }
 

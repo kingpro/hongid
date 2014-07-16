@@ -6,11 +6,11 @@
 package Setting
 
 import (
-	"github.com/revel/revel"
+	"admin/app/controllers"
 	"admin/app/models"
 	"admin/utils"
 	"admin/utils/consts"
-	"admin/app/controllers"
+	"github.com/revel/revel"
 )
 
 type Menu struct {
@@ -157,8 +157,8 @@ func (c *Menu) Add(menu *models.Menu) revel.Result {
 
 //删除状态
 const (
-	C_MenuDel_Fail  string = "0"
-	C_MenuDel_Succ  string = "1"
+	C_MenuDel_Fail string = "0"
+	C_MenuDel_Succ string = "1"
 )
 
 //删除

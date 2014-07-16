@@ -9,11 +9,11 @@ import "testing"
 
 func TestMemberCardString(t *testing.T) {
 	card := &MemberCard{
-		MII:    6,
-		CPI:    32,
-		CDI:    86,
-		PII:    1,
-		IVC:    1,
+		MII: 6,
+		CPI: 32,
+		CDI: 86,
+		PII: 1,
+		IVC: 1,
 	}
 	if card.String() != CardNumber("6320860000000000011") {
 		t.Errorf("Error: %v", card.String())
@@ -21,7 +21,7 @@ func TestMemberCardString(t *testing.T) {
 }
 
 func TestNewMemberCard(t *testing.T) {
-	card := NewMemberCard(6,32,86,1)
+	card := NewMemberCard(6, 32, 86, 1)
 	if card.String() != CardNumber("6320860000000000013") {
 		t.Errorf("Error: %v", card.String())
 	}

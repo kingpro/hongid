@@ -109,10 +109,9 @@ func ParseAnnounceId(aidStr string) (int64, bool) {
 func parseInt(intStr, desc string) (int64, bool) {
 	intVal, err := strconv.ParseInt(intStr, 10, 64)
 	if err != nil {
-		revel.WARN.Printf("%v[%v]解析错误: %v",desc, intStr, err)
+		revel.WARN.Printf("%v[%v]解析错误: %v", desc, intStr, err)
 		return 0, false
 	}
 
 	return intVal, true
 }
-

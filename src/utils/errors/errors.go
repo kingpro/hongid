@@ -7,8 +7,8 @@ package errors
 import (
 	"bytes"
 	"runtime"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 // This interface exposes additional information about the error.
@@ -49,7 +49,7 @@ func GetMessage(err interface{}) string {
 		}
 		ret := []string{}
 		for dberr.IsError() {
-			ret = append(ret, "ErrCode[" + strconv.Itoa(int(dberr.GetCode())) + "]:")
+			ret = append(ret, "ErrCode["+strconv.Itoa(int(dberr.GetCode()))+"]:")
 			ret = append(ret, dberr.GetMessage())
 			d := dberr.GetInner()
 			if d == nil {
@@ -93,7 +93,7 @@ func fillErrorInfo(err error, errLines *[]string, origStack *string) {
 
 	derr, ok := err.(GlobalWaysError)
 	if ok {
-		*errLines = append(*errLines, "ErrCode[" + strconv.Itoa(int(derr.GetCode())) + "]:")
+		*errLines = append(*errLines, "ErrCode["+strconv.Itoa(int(derr.GetCode()))+"]:")
 		*errLines = append(*errLines, derr.GetMessage())
 		*origStack = derr.GetStack()
 		fillErrorInfo(derr.GetInner(), errLines, origStack)

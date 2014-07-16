@@ -14,7 +14,7 @@ GET      /memberGroup/name/:groupName                MemberGroup.GetMemberGroupB
 #加油站组别
 GET     /api/stations                                GasStations.StationsList
 GET     /api/stations/id/:stationId                  GasStations.GetStationById
-#POST    /api/stations                                GasStations.SaveStation
+POST    /api/stations                                GasStations.SaveStation
 #PUT     /api/stations/id/:id                         GasStations.UpdateStation
 #DELETE  /api/stations/id/:id                         GasStations.DeleteStation
 

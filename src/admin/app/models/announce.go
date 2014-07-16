@@ -9,8 +9,8 @@ import (
 	"github.com/go-xorm/xorm"
 	"github.com/revel/revel"
 	"html/template"
-	"utils/page"
 	"time"
+	"utils/page"
 	"utils/times"
 )
 
@@ -60,7 +60,7 @@ func (a *Announce) GetByAll(Page int64, Perpage int64) ([]*Announce, template.HT
 	pages := Pager.Show()
 
 	//查询数据
-	DB_Read.Limit(int(Perpage), int((Page - 1)*Pager.Perpage)).Desc("id").Find(&announce_list)
+	DB_Read.Limit(int(Perpage), int((Page-1)*Pager.Perpage)).Desc("id").Find(&announce_list)
 
 	return announce_list, pages
 }

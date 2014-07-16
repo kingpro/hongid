@@ -74,7 +74,6 @@ func New(code int8, msg string) GlobalWaysError {
 	}
 }
 
-
 // Same as New, but with fmt.Printf-style parameters.
 func Newf(code int8, format string, args ...interface{}) GlobalWaysError {
 	stack, context := StackTrace()

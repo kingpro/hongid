@@ -8,7 +8,7 @@ import (
 
 func TestStackTrace(t *testing.T) {
 	const testMsg = "test error"
-	er := New(0,testMsg)
+	er := New(0, testMsg)
 	e := er.(*GlobalWaysBaseError)
 
 	if e.Msg != testMsg {
@@ -35,8 +35,8 @@ func TestWrappedError(t *testing.T) {
 		outerMsg  = "I am the mighty outer error"
 	)
 	inner := fmt.Errorf(innerMsg)
-	middle := Wrap(0,inner, middleMsg)
-	outer := Wrap(0,middle, outerMsg)
+	middle := Wrap(0, inner, middleMsg)
+	outer := Wrap(0, middle, outerMsg)
 	errorStr := outer.Error()
 
 	if strings.Index(errorStr, innerMsg) == -1 {
@@ -51,4 +51,3 @@ func TestWrappedError(t *testing.T) {
 		t.Errorf("couldn't find outer error message in:\n%s", errorStr)
 	}
 }
-
