@@ -18,17 +18,17 @@ import (
 
 type Admin struct {
 	Id            int64  `xorm:"pk autoincr"`
-	Username      string `xorm:"unique index varchar(255)"`
+	UserName      string `xorm:"unique index varchar(255)"`
 	Password      string `xorm:"varchar:(255)"`
-	Roleid        int64  `xorm:"index"`
+	RoleId        int64  `xorm:"index"`
 	Role          *Role  `xorm:"- <- ->"`
-	Lastloginip   string `xorm:"varchar(32)"`
-	Lastlogintime string `xorm:"varchar(32)"`
+	LastLoginIp   string `xorm:"varchar(32)"`
+	LastLoginTime string `xorm:"varchar(32)"`
 	Email         string `xorm:"varchar(32)"`
-	Realname      string `xorm:"varchar(32)"`
+	RealName      string `xorm:"varchar(32)"`
 	Lang          string `xorm:"varchar(6)"`
 	Status        int64  `xorm:"bool"`
-	Createtime    string `xorm:"DateTime"`
+	CreateTime    string `xorm:"DateTime"`
 }
 
 type Password struct {
@@ -37,13 +37,13 @@ type Password struct {
 }
 
 func (a *Admin) Validate(v *revel.Validation) {
-	v.Required(a.Username).Message("请输入用户名!")
-	valid := v.Match(a.Username, regexp.MustCompile("^\\w*$")).Message("只能使用字母、数字和下划线!")
+	v.Required(a.UserName).Message("请输入用户名!")
+	valid := v.Match(a.UserName, regexp.MustCompile("^\\w*$")).Message("只能使用字母、数字和下划线!")
 	if valid.Ok {
 		if a.HasName() {
 			err := &revel.ValidationError{
 				Message: "该用户名已经注册过!",
-				Key:     "a.Username",
+				Key:     "a.UserName",
 			}
 			valid.Error = err
 			valid.Ok = false
@@ -88,7 +88,7 @@ func (a *Admin) GetByAll(RoleId int64, Page int64, Perpage int64) ([]*Admin, tem
 
 		//查询总数
 		admin := new(Admin)
-		Total, err := DB_Read.Where("roleid=?", RoleId).Count(admin)
+		Total, err := DB_Read.Where("RoleId = ?", RoleId).Count(admin)
 		if err != nil {
 			revel.WARN.Printf("获取角色[%v]的管理员列表错误: %v", RoleId, err)
 		}
@@ -102,13 +102,13 @@ func (a *Admin) GetByAll(RoleId int64, Page int64, Perpage int64) ([]*Admin, tem
 		Pager.SubPage_type = 2
 		pages := Pager.Show()
 
-		DB_Read.Where("roleid=?", RoleId).Limit(int(Perpage), int((Page-1)*Pager.Perpage)).Find(&admin_list)
+		DB_Read.Where("RoleId = ?", RoleId).Limit(int(Perpage), int((Page-1)*Pager.Perpage)).Find(&admin_list)
 
 		if len(admin_list) > 0 {
 			role := new(Role)
 
 			for i, v := range admin_list {
-				admin_list[i].Role = role.GetById(v.Roleid)
+				admin_list[i].Role = role.GetById(v.RoleId)
 			}
 		}
 
@@ -137,7 +137,7 @@ func (a *Admin) GetByAll(RoleId int64, Page int64, Perpage int64) ([]*Admin, tem
 			role := new(Role)
 
 			for i, v := range admin_list {
-				admin_list[i].Role = role.GetById(v.Roleid)
+				admin_list[i].Role = role.GetById(v.RoleId)
 			}
 		}
 
@@ -149,7 +149,7 @@ func (a *Admin) GetByAll(RoleId int64, Page int64, Perpage int64) ([]*Admin, tem
 func (a *Admin) HasName() bool {
 
 	admin := new(Admin)
-	_, err := DB_Read.Where("username=?", a.Username).Get(admin)
+	_, err := DB_Read.Where("UserName=?", a.UserName).Get(admin)
 	if err != nil {
 		revel.WARN.Printf("验证管理员用户名时错误: %v", err)
 		return false
@@ -166,7 +166,7 @@ func (a *Admin) HasName() bool {
 func (a *Admin) HasEmail() bool {
 
 	admin := new(Admin)
-	_, err := DB_Read.Where("email=?", a.Email).Get(admin)
+	_, err := DB_Read.Where("Email=?", a.Email).Get(admin)
 	if err != nil {
 		revel.WARN.Printf("验证管理员Email错误: %v", err)
 		return false
@@ -188,7 +188,7 @@ func (a *Admin) GetById(Id int64) *Admin {
 		revel.WARN.Printf("根据Id[%v]获取管理员信息错误: %v", Id, err)
 	} else {
 		role := new(Role)
-		admin.Role = role.GetById(admin.Roleid)
+		admin.Role = role.GetById(admin.RoleId)
 	}
 
 	return admin
@@ -198,12 +198,12 @@ func (a *Admin) GetById(Id int64) *Admin {
 func (a *Admin) GetByRealName(name string) *Admin {
 	admin := new(Admin)
 
-	_, err := DB_Read.Where("realname=?", name).Get(admin)
+	_, err := DB_Read.Where("RealName=?", name).Get(admin)
 	if err != nil {
 		revel.WARN.Printf("根据真实姓名[%v]获取管理员信息错误: %v", name, err)
 	} else {
 		role := new(Role)
-		admin.Role = role.GetById(admin.Roleid)
+		admin.Role = role.GetById(admin.RoleId)
 	}
 
 	return admin
@@ -213,12 +213,12 @@ func (a *Admin) GetByRealName(name string) *Admin {
 func (a *Admin) GetByName(name string) *Admin {
 	admin := new(Admin)
 
-	_, err := DB_Read.Where("username=?", name).Get(admin)
+	_, err := DB_Read.Where("UserName=?", name).Get(admin)
 	if err != nil {
 		revel.WARN.Printf("根据用户名[%v]获取管理员信息错误: %v", name, err)
 	} else {
 		role := new(Role)
-		admin.Role = role.GetById(admin.Roleid)
+		admin.Role = role.GetById(admin.RoleId)
 	}
 
 	return admin
@@ -228,22 +228,22 @@ func (a *Admin) GetByName(name string) *Admin {
 func (a *Admin) Save() bool {
 
 	admin := new(Admin)
-	admin.Username = a.Username
+	admin.UserName = a.UserName
 	admin.Password = security.GenerateFromPassword(a.Password)
-	admin.Roleid = a.Roleid
+	admin.RoleId = a.RoleId
 
 	var err error
-	admin.Lastloginip, err = ipv4.GetClientIP()
+	admin.LastLoginIp, err = ipv4.GetClientIP()
 	if err != nil {
 		revel.WARN.Printf("获取客户端IP错误: %v", err)
 	}
 
 	admin.Email = a.Email
-	admin.Realname = a.Realname
+	admin.RealName = a.RealName
 	admin.Lang = a.Lang
-	admin.Lastlogintime = "0000-00-00 00:00:00"
+	admin.LastLoginTime = "0000-00-00 00:00:00"
 	admin.Status = a.Status
-	admin.Createtime = time.Now().Format(times.Time_Layout_1)
+	admin.CreateTime = time.Now().Format(times.Time_Layout_1)
 
 	_, err = DB_Write.Insert(admin)
 	if err != nil {
@@ -258,10 +258,10 @@ func (a *Admin) Save() bool {
 func (a *Admin) UpdateLoginTime(Id int64) bool {
 	admin := new(Admin)
 
-	admin.Lastloginip, _ = ipv4.GetClientIP()
-	admin.Lastlogintime = time.Now().Format(times.Time_Layout_1)
+	admin.LastLoginIp, _ = ipv4.GetClientIP()
+	admin.LastLoginTime = time.Now().Format(times.Time_Layout_1)
 
-	_, err := DB_Write.Id(Id).Cols("lastloginip", "lastlogintime").Update(admin)
+	_, err := DB_Write.Id(Id).Cols("LastLoginIp", "LastLoginTime").Update(admin)
 	if err != nil {
 		revel.WARN.Printf("更新管理员登录IP&时间错误: %v", err)
 		return false
@@ -278,8 +278,8 @@ func (a *Admin) EditInfo(Id int64) bool {
 		admin.Email = a.Email
 	}
 
-	if len(a.Realname) > 0 {
-		admin.Realname = a.Realname
+	if len(a.RealName) > 0 {
+		admin.RealName = a.RealName
 	}
 
 	if len(a.Lang) > 0 {
@@ -288,7 +288,7 @@ func (a *Admin) EditInfo(Id int64) bool {
 
 	_, err := DB_Write.Id(Id).Cols("email", "realname", "lang").Update(admin)
 	if err != nil {
-		revel.WARN.Printf("更新管理员[%v]个人信息错误: %v", a.Realname, err)
+		revel.WARN.Printf("更新管理员[%v]个人信息错误: %v", a.RealName, err)
 		return false
 	}
 
@@ -317,24 +317,24 @@ func (a *Admin) Edit(Id int64) bool {
 
 	admin := new(Admin)
 
-	if len(a.Username) > 0 {
-		admin.Username = a.Username
+	if len(a.UserName) > 0 {
+		admin.UserName = a.UserName
 	}
 
 	if len(a.Password) > 0 {
 		admin.Password = security.GenerateFromPassword(a.Password)
 	}
 
-	if a.Roleid > 0 {
-		admin.Roleid = a.Roleid
+	if a.RoleId > 0 {
+		admin.RoleId = a.RoleId
 	}
 
 	if len(a.Email) > 0 {
 		admin.Email = a.Email
 	}
 
-	if len(a.Realname) > 0 {
-		admin.Realname = a.Realname
+	if len(a.RealName) > 0 {
+		admin.RealName = a.RealName
 	}
 
 	if len(a.Lang) > 0 {

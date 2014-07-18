@@ -18,14 +18,14 @@ import (
 
 type Logs struct {
 	Id         int64  `xorm:"pk autoincr"`
-	Uid        int64  `xorm:"unique"`
+	Uid        int64
 	Admin      *Admin `xorm:"- <- ->"`
 	Module     string `xorm:"varchar:(50)"`
 	Url        string `xorm:"varchar(100)"`
 	Action     string `xorm:"varchar(100)"`
 	Ip         string `xorm:"varchar(15)"`
 	Desc       string `xorm:"text"`
-	Createtime string `xorm:"DateTime"`
+	CreateTime string `xorm:"DateTime"`
 }
 
 func (L *Logs) Validate(v *revel.Validation) {
@@ -42,11 +42,11 @@ func (L *Logs) Save(Admin_Info *Admin, c *revel.Controller, Desc string) bool {
 	logs.Action = c.MethodName
 	logs.Ip, _ = ipv4.GetClientIP()
 	logs.Desc = Desc
-	logs.Createtime = time.Now().Format(times.Time_Layout_1)
+	logs.CreateTime = time.Now().Format(times.Time_Layout_1)
 
 	_, err := DB_Write.Insert(logs)
 	if err != nil {
-		revel.WARN.Printf("为管理员[%v]添加日志记录错误: %v", Admin_Info.Realname, err)
+		revel.WARN.Printf("为管理员[%v]添加日志记录错误: %v", Admin_Info.RealName, err)
 		return false
 	}
 
@@ -56,7 +56,7 @@ func (L *Logs) Save(Admin_Info *Admin, c *revel.Controller, Desc string) bool {
 //清空日志
 //TODO 清空日志是将所有后台操作日志清空么？还是清空当前管理员日志？谁有清空的权限？
 func (L *Logs) DelAll() bool {
-	sql := "TRUNCATE `" + Write_prefix + "logs`;"
+	sql := "TRUNCATE Logs;"
 	_, err := DB_Write.Exec(sql)
 	if err != nil {
 		revel.WARN.Printf("清空日志错误: %v", err)

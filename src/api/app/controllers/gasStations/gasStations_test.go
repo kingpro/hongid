@@ -36,7 +36,7 @@ func SendHttpPost(dataBuf io.Reader, protoAddr string) (outbuffer []byte, err er
 	return outbuffer, err
 }
 
-func TestSaveStationErrorField(t *testing.T) {
+func TestSaveStation(t *testing.T) {
 	reqMsg := models.ReqNewStation{
 		StationName: "中和加油站",
 		Phone:        "028-8348573",

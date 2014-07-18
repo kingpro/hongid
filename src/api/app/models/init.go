@@ -12,9 +12,9 @@ import (
 	"github.com/revel/revel"
 	"os"
 	"strings"
-	"utils/db"
-	"utils/errors"
 	"utils/mail"
+	"github.com/go-xorm/xorm"
+	"github.com/go-xorm/core"
 )
 
 //SMTP
@@ -26,9 +26,9 @@ var (
 //数据库连接
 var (
 	//读数据
-	ReaderEngine db.DBReader
+	ReaderEngine *xorm.Engine
 	//写数据
-	WriterEngine db.DBWriter
+	WriterEngine *xorm.Engine
 )
 
 func init() {
@@ -37,9 +37,6 @@ func init() {
 
 //初始化数据库
 func initDB() {
-
-	ReaderEngine = new(db.XormEngine)
-	WriterEngine = new(db.XormEngine)
 
 	//设置系统分隔符
 	separator := "/"
@@ -59,12 +56,13 @@ func initDB() {
 	read_encoding, _ := c.String("database", "db.read.encoding")
 
 	//数据库连接
-	var err errors.GlobalWaysError
-	err = ReaderEngine.Connect(read_driver, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s", read_user, read_password, read_host, read_dbName, read_encoding))
-	if err.IsError() {
-		revel.WARN.Printf("数据库连接错误: %v", errors.DefaultError(err))
+	var err error
+	ReaderEngine, err = xorm.NewEngine(read_driver, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s", read_user, read_password, read_host, read_dbName, read_encoding))
+	if err != nil {
+		revel.WARN.Printf("数据库连接错误: %v", err)
 		os.Exit(-1)
 	}
+	ReaderEngine.SetMapper(core.SameMapper{})
 
 	write_driver, _ := c.String("database", "db.write.driver")
 	write_dbname, _ := c.String("database", "db.write.dbname")
@@ -73,10 +71,11 @@ func initDB() {
 	write_host, _ := c.String("database", "db.write.host")
 	write_encoding, _ := c.String("database", "db.write.encoding")
 
-	err = WriterEngine.Connect(write_driver, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s", write_user, write_password, write_host, write_dbname, write_encoding))
-	if err.IsError() {
-		revel.WARN.Printf("数据库连接错误: %v", errors.DefaultError(err))
+	WriterEngine, err = xorm.NewEngine(write_driver, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s", write_user, write_password, write_host, write_dbname, write_encoding))
+	if err != nil {
+		revel.WARN.Printf("数据库连接错误: %v",err)
 		os.Exit(-1)
 	}
+	WriterEngine.SetMapper(core.SameMapper{})
 
 }

@@ -8,11 +8,11 @@
 			{{if .admin_info}}
 				{{$admin_info := .admin_info}}
 				<div class="content">
-					{{msg . "main_hello"}}{{$admin_info.Realname}}<br>
-					{{msg . "main_role"}}{{$admin_info.Role.Rolename}} <br>
+					{{msg . "main_hello"}}{{$admin_info.RealName}}<br>
+					{{msg . "main_role"}}{{$admin_info.Role.RoleName}} <br>
 				<div class="bk20 hr"><hr></div>
-					{{msg . "main_last_logintime"}}{{$admin_info.Lastlogintime}}<br>
-					{{msg . "main_last_loginip"}}{{$admin_info.Lastloginip}} <br>
+					{{msg . "main_last_logintime"}}{{$admin_info.LastLoginTime}}<br>
+					{{msg . "main_last_loginip"}}{{$admin_info.LastLoginIp}} <br>
 				</div>
 			{{end}}
 		</div>

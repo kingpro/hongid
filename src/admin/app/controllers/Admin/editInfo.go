@@ -38,7 +38,7 @@ func (c *Admin) EditInfo(admin *models.Admin) revel.Result {
 			//真实姓名
 			realname := c.Params.Get("realname")
 			if len(realname) > 0 {
-				admin.Realname = realname
+				admin.RealName = realname
 			} else {
 				c.Flash.Error("请输入真实姓名!")
 				c.Flash.Out["url"] = "/EditInfo/"

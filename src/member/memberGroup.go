@@ -1,16 +1,15 @@
-// Package: openapi.app.models.member
-// File: group.go
+// Package: member
+// File: memberGroup.go
 // Created by mint
-// Useage: 会员组: 个人会员、企业会员、机构会员...
-// DATE: 14-7-8 14:55
+// Useage: 会员组
+// DATE: 14-7-18 17:31
 package member
 
 import (
-	"api/app/models"
-	"github.com/revel/revel"
-	"time"
-	"utils/errors"
 	"utils/times"
+	"time"
+	"github.com/go-xorm/xorm"
+	"utils/errors"
 )
 
 const (
@@ -92,24 +91,19 @@ func (g *MemberGroup) SetMemberGroupUpdateTime(time string) {
 
 //数据库操作
 //Insert
-func AddMemberGroup(memberGroup *MemberGroup) bool {
+func AddMemberGroup(memberGroup *MemberGroup, engine *xorm.Engine) bool {
 
 	return true
 }
 
 //Select
-func GetMemberGroupById(id int64) (memberGroup *MemberGroup, exist bool, err errors.GlobalWaysError) {
-	memberGroup = new(MemberGroup)
-	if exist, err = models.ReaderEngine.GetById(id, memberGroup); err.IsError() {
-		revel.WARN.Printf("GetMemberGroupById[%v] ret err: %v", id, err.ErrorMessage())
+func GetMemberGroupById(id int64, engine *xorm.Engine) (*MemberGroup, bool, errors.GlobalWaysError) {
+	memberGroup := new(MemberGroup)
+	if exist, err := engine.Id(id).Get(memberGroup); err != nil {
+		return nil, false, errors.Newf(errors.CODE_DB_ERR_GET, "GetMemberGroupById[%v] ret err: %v", id, err)
+	} else if !exist {
+		return nil, false, errors.New(errors.CODE_DB_ERR_NODATA, errors.MSG_DB_ERR_NODATA)
 	}
-	return
-}
 
-func GetMemberGroupByName(name string) (memberGroup *MemberGroup, exist bool, err errors.GlobalWaysError) {
-	memberGroup = new(MemberGroup)
-	if exist, err = models.ReaderEngine.GetByCol("GroupName", "=", name, memberGroup); err.IsError() {
-		revel.WARN.Printf("GetMemberGroupByName[%v] ret err: %v", name, err.ErrorMessage())
-	}
-	return
+	return memberGroup, true, errors.ErrorOK()
 }

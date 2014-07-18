@@ -20,11 +20,11 @@ type Announce struct {
 	Id         int64  `xorm:"pk"`
 	Title      string `xorm:"varchar(255)"`
 	Content    string `xorm:"text"`
-	Starttime  string `xorm:"DateTime"`
-	Endtime    string `xorm:"DateTime"`
+	StartTime  string `xorm:"DateTime"`
+	EndTime    string `xorm:"DateTime"`
 	Hits       int64  `xorm:"int(11)"`
 	Status     int64  `xorm:"default 1"`
-	Createtime string `xorm:"DateTime"`
+	CreateTime string `xorm:"DateTime"`
 }
 
 //根据ID获取公告信息
@@ -71,11 +71,11 @@ func (a *Announce) Save() bool {
 	announce := new(Announce)
 	announce.Title = a.Title
 	announce.Content = a.Content
-	announce.Starttime = a.Starttime
-	announce.Endtime = a.Endtime
+	announce.StartTime = a.StartTime
+	announce.EndTime = a.EndTime
 	announce.Hits = 0
 	announce.Status = a.Status
-	announce.Createtime = time.Now().Format(times.Time_Layout_1)
+	announce.CreateTime = time.Now().Format(times.Time_Layout_1)
 
 	_, err := DB_Write.Insert(announce)
 	if err != nil {
@@ -98,12 +98,12 @@ func (a *Announce) Edit(Id int64) bool {
 		announce.Content = a.Content
 	}
 
-	if len(a.Starttime) > 0 {
-		announce.Starttime = a.Starttime
+	if len(a.StartTime) > 0 {
+		announce.StartTime = a.StartTime
 	}
 
-	if len(a.Endtime) > 0 {
-		announce.Endtime = a.Endtime
+	if len(a.EndTime) > 0 {
+		announce.EndTime = a.EndTime
 	}
 
 	announce.Status = a.Status

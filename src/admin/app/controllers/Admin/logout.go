@@ -27,7 +27,7 @@ func (c *Admin) Logout(admin *models.Admin) revel.Result {
 		//******************************************
 		//管理员日志
 		logs := new(models.Logs)
-		desc := "登陆用户名:" + admin_info.Username + "|^|退出系统!|^|登陆ID:" + fmt.Sprintf("%d", admin_info.Id)
+		desc := "登陆用户名:" + admin_info.UserName + "|^|退出系统!|^|登陆ID:" + fmt.Sprintf("%d", admin_info.Id)
 		logs.Save(admin_info, c.Controller, desc)
 		//*****************************************
 

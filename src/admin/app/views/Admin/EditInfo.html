@@ -15,21 +15,21 @@
 					<table width="100%" class="table_form contentWrap">
 						<tr>
 							<td width="120"><strong>{{msg . "username"}}：</strong></td>
-							<td>{{$admin_info.Username}}</td>
+							<td>{{$admin_info.UserName}}</td>
 						</tr>
 						<tr>
 							<td width="120"><strong>{{msg . "lastlogintime"}}：</strong></td>
-							<td>{{$admin_info.Lastlogintime}}</td>
+							<td>{{$admin_info.LastLoginTime}}</td>
 						</tr>
 						<tr>
 							<td width="120"><strong>{{msg . "lastloginip"}}：</strong></td>
-							<td>{{$admin_info.Lastloginip}}</td>
+							<td>{{$admin_info.LastLoginIp}}</td>
 						</tr>
 						<tr>
 							<td><strong>{{msg . "realname"}}：</strong></td>
 							<td>
 								<input type="text" name="realname" id="realname" 
-									class="input-text" size="30" value="{{$admin_info.Realname}}"></input>
+									class="input-text" size="30" value="{{$admin_info.RealName}}"></input>
 								<div id="realnameTip" class="onShow">请输入真实姓名</div>
 							</td>
 						</tr>

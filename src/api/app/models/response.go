@@ -5,7 +5,7 @@
 // DATE: 14-7-16 11:11
 package models
 
-type RspNewStation struct {
+type SationInfo struct {
 	StationName  string `json:"stationName"`
 	Phone        string `json:"phone"`
 	TelPhone     string `json:"telPhone"`
@@ -20,11 +20,22 @@ type RspNewStation struct {
 	Address      string `json:"address"`
 }
 
+type RspNewStation struct {
+	StationInfo *SationInfo  `json:"stationInfo"`
+	FieldErrors []FieldError `json:"fieldErrors"`
+}
+
+type RspUpdStation struct {
+	StationInfo *SationInfo  `json:"stationInfo"`
+	FieldErrors []FieldError `json:"fieldErrors"`
+}
+
 type FieldError struct {
 	Field   string `json:"field"`
 	Message string `json:"message"`
 }
 
-type FieldErrors struct {
-	FieldErrors []FieldError `json:"fieldErrors"`
+type RspError struct {
+	ErrorCode   int8    `json:"errorCode"`
+	Message     string  `json:"message"`
 }

@@ -34,4 +34,5 @@ type DBWriter interface {
 
 	Insert(bean interface{}) (bool, errors.GlobalWaysError)
 	Update(bean interface{}, condiBean ...interface{}) (bool, errors.GlobalWaysError)
+
 }

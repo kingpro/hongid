@@ -84,7 +84,7 @@ func (c *Menu) Add(menu *models.Menu) revel.Result {
 
 		enname := c.Params.Get("enname")
 		if len(enname) > 0 {
-			menu.Enname = enname
+			menu.EName = enname
 		} else {
 			c.Flash.Error("请输入英文语言名称!")
 			c.Flash.Out["url"] = "/Menu/Add/"
@@ -253,7 +253,7 @@ func (c Menu) Edit(menu *models.Menu) revel.Result {
 
 				enname := c.Params.Get("enname")
 				if len(enname) > 0 {
-					menu.Enname = enname
+					menu.EName = enname
 				} else {
 					c.Flash.Error("请输入英文语言名称!")
 					c.Flash.Out["url"] = "/Menu/Edit/" + id + "/"

@@ -16,7 +16,7 @@
 					<table width="100%" class="table_form contentWrap">
 						<tr>
 							<td width="130"><strong>{{msg . "username"}}：</strong></td>
-							<td><input type="text" name="username" id="username" value="{{$admin_info.Username}}"
+							<td><input type="text" name="username" id="username" value="{{$admin_info.UserName}}"
 								class="input-text"></input></td>
 						</tr>
 						<tr>
@@ -41,7 +41,7 @@
 
 						<tr>
 							<td><strong>{{msg . "realname"}}：</strong></td>
-							<td><input type="text" name="realname" value="{{$admin_info.Realname}}"
+							<td><input type="text" name="realname" value="{{$admin_info.RealName}}"
 								class="input-text" id="realname"></input></td>
 						</tr>
 						<tr>
@@ -49,10 +49,10 @@
 							<td>
 								<select id="roleid" name="roleid">
 									{{range .role_list}}
-										{{if eq .Id $admin_info.Roleid}}
-											<option value="{{.Id}}" selected>{{.Rolename}}</option>
+										{{if eq .Id $admin_info.RoleId}}
+											<option value="{{.Id}}" selected>{{.RoleName}}</option>
 										{{else}}
-											<option value="{{.Id}}">{{.Rolename}}</option>
+											<option value="{{.Id}}">{{.RoleName}}</option>
 										{{end}}
 									{{end}}
 								</select>

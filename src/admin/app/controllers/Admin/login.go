@@ -81,7 +81,7 @@ func (c *Admin) Login(admin *models.Admin) revel.Result {
 			data["url"] = "/"
 			data["message"] = c.Message("admin_forbid_role_login")
 			//TODO 密码加密解密
-		} else if username == admin_info.Username && security.CompareHashAndPassword(admin_info.Password, password) {
+		} else if username == admin_info.UserName && security.CompareHashAndPassword(admin_info.Password, password) {
 			c.Session[consts.C_Session_AdminID] = fmt.Sprintf("%d", admin_info.Id)
 			c.Session[consts.C_Session_Lang] = admin_info.Lang
 
@@ -94,7 +94,7 @@ func (c *Admin) Login(admin *models.Admin) revel.Result {
 			//******************************************
 			//管理员日志
 			logs := new(models.Logs)
-			desc := "登陆用户名:" + admin_info.Username + "|^|登陆系统!|^|登陆ID:" + fmt.Sprintf("%d", admin_info.Id)
+			desc := "登陆用户名:" + admin_info.UserName + "|^|登陆系统!|^|登陆ID:" + fmt.Sprintf("%d", admin_info.Id)
 			logs.Save(admin_info, c.Controller, desc)
 			//*****************************************
 

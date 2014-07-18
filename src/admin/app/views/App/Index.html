@@ -21,7 +21,7 @@
         <div class="tab_style white cut_line text-r">
             <a href="javascript:;" onclick="lock_screen()"><img
                     src="/public/img/icon/lockscreen.png"> {{msg . "lockscreen"}} </a><span>|</span>
-            <a href="" target="_blank">{{msg . "official_site"}}</a>
+            <!--<a href="" target="_blank">{{msg . "official_site"}}</a>-->
             <ul id="Skin">
                 <li class="s1 styleswitch" rel="styles1"></li>
                 <li class="s2 styleswitch" rel="styles2"></li>
@@ -33,7 +33,7 @@
     <div class="col-auto">
         {{$admin_info := .AdminInfo}}
         <div class="log white cut_line">
-            {{msg . "hello"}}{{$admin_info.Username}} [{{$admin_info.Role.Rolename}}]<span>|</span>
+            {{msg . "hello"}}{{$admin_info.UserName}} [{{$admin_info.Role.RoleName}}]<span>|</span>
             <a href="javascript:;" onclick="Logout()">[{{msg . "exit"}}]</a><span>|</span>
             <a href="/Search/" target="right" id="site_search">{{msg . "search"}}</a>
         </div>

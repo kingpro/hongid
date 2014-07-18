@@ -81,7 +81,7 @@ func (c *Role) Add(role *models.Role) revel.Result {
 
 		rolename := c.Params.Get("rolename")
 		if len(rolename) > 0 {
-			role.Rolename = rolename
+			role.RoleName = rolename
 		} else {
 			c.Flash.Error("请输入角色名称!")
 			c.Flash.Out["url"] = "/Role/add/"
@@ -181,7 +181,7 @@ func (c *Role) Edit(role *models.Role) revel.Result {
 
 			rolename := c.Params.Get("rolename")
 			if len(rolename) > 0 {
-				role.Rolename = rolename
+				role.RoleName = rolename
 			} else {
 				c.Flash.Error("请输入角色名称!")
 				c.Flash.Out["url"] = "/Role/edit/" + id + "/"

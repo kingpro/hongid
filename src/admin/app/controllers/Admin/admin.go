@@ -51,7 +51,7 @@ func (c *Admin) Add(admin *models.Admin) revel.Result {
 
 		username := c.Params.Get("username")
 		if len(username) > 0 {
-			admin.Username = username
+			admin.UserName = username
 		} else {
 			c.Flash.Error("请输入用户名!")
 			c.Flash.Out["url"] = "/Admin/add/"
@@ -104,7 +104,7 @@ func (c *Admin) Add(admin *models.Admin) revel.Result {
 
 		realname := c.Params.Get("realname")
 		if len(realname) > 0 {
-			admin.Realname = realname
+			admin.RealName = realname
 		} else {
 			c.Flash.Error("请输入真实姓名!")
 			c.Flash.Out["url"] = "/Admin/add/"
@@ -123,7 +123,7 @@ func (c *Admin) Add(admin *models.Admin) revel.Result {
 		roleid := c.Params.Get("roleid")
 		if len(roleid) > 0 {
 			if RoleId, ok := utils.ParseRoleId(roleid); ok {
-				admin.Roleid = RoleId
+				admin.RoleId = RoleId
 			}
 		} else {
 			c.Flash.Error("请选择所属角色!")
@@ -196,7 +196,7 @@ func (c *Admin) Edit(admin *models.Admin) revel.Result {
 			if adminId, ok := utils.ParseAdminId(id); ok {
 				username := c.Params.Get("username")
 				if len(username) > 0 {
-					admin.Username = username
+					admin.UserName = username
 				} else {
 					c.Flash.Error("请输入用户名!")
 					c.Flash.Out["url"] = "/Admin/edit/" + id + "/"
@@ -228,7 +228,7 @@ func (c *Admin) Edit(admin *models.Admin) revel.Result {
 
 				realname := c.Params.Get("realname")
 				if len(realname) > 0 {
-					admin.Realname = realname
+					admin.RealName = realname
 				} else {
 					c.Flash.Error("请输入真实姓名!")
 					c.Flash.Out["url"] = "/Admin/edit/" + id + "/"
@@ -247,7 +247,7 @@ func (c *Admin) Edit(admin *models.Admin) revel.Result {
 				roleid := c.Params.Get("roleid")
 				if len(roleid) > 0 {
 					if RoleId, ok := utils.ParseRoleId(roleid); ok {
-						admin.Roleid = RoleId
+						admin.RoleId = RoleId
 					}
 				} else {
 					c.Flash.Error("请选择所属角色!")

@@ -8,16 +8,17 @@ GET      /                                       App.Index
 
 #会员组
 GET      /memberGroup/id/:groupId                    MemberGroup.GetMemberGroupById
-GET      /memberGroup/name/:groupName                MemberGroup.GetMemberGroupByName
 
 #会员
 #加油站组别
 GET     /api/stations                                GasStations.StationsList
 GET     /api/stations/id/:stationId                  GasStations.GetStationById
 POST    /api/stations                                GasStations.SaveStation
-#PUT     /api/stations/id/:id                         GasStations.UpdateStation
-#DELETE  /api/stations/id/:id                         GasStations.DeleteStation
+PUT     /api/stations/id/:id                         GasStations.UpdateStation
+DELETE  /api/stations/id/:id                         GasStations.DeleteStation
 
+#错误处理
+GET    /api/error/404                                ErrorHandler.Handle404
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -6,9 +6,10 @@
 package member
 
 import (
-	"api/app/models/member"
+	"member"
 	"github.com/revel/revel"
 	"strconv"
+	"api/app/models"
 )
 
 type MemberGroup struct {
@@ -27,7 +28,7 @@ func (c *MemberGroup) GetMemberGroupById() revel.Result {
 	groupIdStr := c.Params.Get("groupId")
 	groupId, _ := strconv.Atoi(groupIdStr)
 
-	group, _, _ := member.GetMemberGroupById(int64(groupId))
+	group, _, _ := member.GetMemberGroupById(int64(groupId), models.ReaderEngine)
 
 	//	rspMsg := &RspMemberGroup{
 	//		GroupName: group.GetMemberGroupName(),
@@ -38,19 +39,4 @@ func (c *MemberGroup) GetMemberGroupById() revel.Result {
 	//	}
 
 	return c.RenderJson(group)
-}
-
-func (c *MemberGroup) GetMemberGroupByName() revel.Result {
-	groupNameStr := c.Params.Get("groupName")
-
-	group, _, _ := member.GetMemberGroupByName(groupNameStr)
-
-	rspMsg := &RspMemberGroup{
-		GroupName:    group.GetMemberGroupName(),
-		GroupDesc:    group.GetMemberGroupDesc(),
-		Contribution: group.GetMemberGroupContribution(),
-		Status:       group.GetMemberGroupStatus(),
-	}
-
-	return c.RenderJson(rspMsg)
 }

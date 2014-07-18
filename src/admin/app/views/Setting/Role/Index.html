@@ -27,7 +27,7 @@
 					{{range .role_list}}
 					<tr>
 						<td align="center">{{.Id}}</td>
-						<td>{{.Rolename}}</td>
+						<td>{{.RoleName}}</td>
 						<!--<td width="30%">{{.Data}}</td>-->
 						<td>{{.Desc}}</td>
 						<td>
@@ -37,7 +37,7 @@
 								<a href="javascript:;" onclick="setStatus({{.Id}},1);"><font color="blue">×</font></a>
 							{{end}}
 						</td>
-						<td>{{.Createtime}}</td>
+						<td>{{.CreateTime}}</td>
 						<td class="text-c">
 							<a href="/Role/model.member/{{.Id}}/">{{msg $msg "role_member_manage"}}</a> |
 							<a href="/Role/edit/{{.Id}}/">{{msg $msg "edit"}}</a> | 

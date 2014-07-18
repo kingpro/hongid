@@ -55,7 +55,7 @@ func (c *Announce) Add(announce *models.Announce) revel.Result {
 
 		starttime := c.Params.Get("starttime")
 		if len(starttime) > 0 {
-			announce.Starttime = starttime
+			announce.StartTime = starttime
 		} else {
 			c.Flash.Error("请输入起始日期!")
 			c.Flash.Out["url"] = "/Announce/add/"
@@ -64,7 +64,7 @@ func (c *Announce) Add(announce *models.Announce) revel.Result {
 
 		endtime := c.Params.Get("endtime")
 		if len(endtime) > 0 {
-			announce.Endtime = endtime
+			announce.EndTime = endtime
 		} else {
 			c.Flash.Error("请输入截止日期!")
 			c.Flash.Out["url"] = "/Announce/add/"
@@ -150,7 +150,7 @@ func (c *Announce) Edit(announce *models.Announce) revel.Result {
 
 			starttime := c.Params.Get("starttime")
 			if len(starttime) > 0 {
-				announce.Starttime = starttime
+				announce.StartTime = starttime
 			} else {
 				c.Flash.Error("请输入起始日期!")
 				c.Flash.Out["url"] = "/Announce/edit/" + id + "/"
@@ -159,7 +159,7 @@ func (c *Announce) Edit(announce *models.Announce) revel.Result {
 
 			endtime := c.Params.Get("endtime")
 			if len(endtime) > 0 {
-				announce.Endtime = endtime
+				announce.EndTime = endtime
 			} else {
 				c.Flash.Error("请输入截止日期!")
 				c.Flash.Out["url"] = "/Announce/edit/" + id + "/"

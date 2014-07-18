@@ -63,14 +63,13 @@ CREATE TABLE IF NOT EXISTS `hd_menu` (
 -- 转存表中的数据 `menu`
 --
 
-INSERT INTO `hd_menu` (`id`, `pid`, `name`, `enname`, `url`, `data`, `order`, `display`) VALUES
+INSERT INTO `Menu` (`Id`, `Pid`, `Name`, `EName`, `Url`, `Data`, `Order`, `Display`) VALUES
 (1, 0, '我的面板', 'Panel', 'Panel', '', 10000, 1),
 (2, 0, '设置', 'Settings', 'Setting', '', 20000, 1),
 (3, 0, '模块', 'Modules', 'Module', '', 30000, 1),
-(4, 0, '内容', 'Content', 'Content', '', 40000, 1),
-(5, 0, '用户', 'Users', 'User', '', 50000, 1),
+(5, 0, '会员', 'Members', 'Member', '', 50000, 1),
 (6, 0, '扩展', 'Extensions', 'Extend', '', 60000, 1),
-(7, 0, '界面', 'Templates', 'Style', '', 70000, 1),
+(7, 0,'会员卡', 'MemberCards', 'MemberCard', '', 70000, 1),
 (8, 0, '应用', 'Plugin', 'Plugin', '', 80000, 1),
 (9, 2, '菜单设置', 'Menu Settings', 'javascript:;', '', 20100, 1),
 (10, 9, '菜单管理', 'Menu management', 'Menu', '', 20101, 1),
@@ -83,20 +82,15 @@ INSERT INTO `hd_menu` (`id`, `pid`, `name`, `enname`, `url`, `data`, `order`, `d
 (17, 2, '日志管理', 'Log management', 'javascript:;', '', 20300, 1),
 (18, 17, '日志管理', 'Log management', 'Logs', '', 20301, 1),
 (19, 1, '快捷面板', 'Shortcut panel', 'javascript:;', '', 10200, 1),
-(20, 4, '内容管理', 'Content management', 'javascript:;', '', 40100, 1),
-(21, 4, '相关设置', 'Related settings', 'javascript:;', '', 40200, 1),
-(22, 20, '栏目管理', 'Manage column', 'Category', '', 40101, 1),
-(23, 20, '内容管理', 'Manage content', 'Content', '', 40102, 1),
-(24, 3, '模块管理', 'Manage module', 'javascript:;', '', 30100, 1),
-(25, 24, '公告', 'Announcement', 'Announce', '', 30101, 1),
-(26, 6, '扩展', 'Extensions', 'javascript:;', '', 60100, 1),
-(27, 26, '来源管理', 'Source management', 'Copyfrom', '', 60101, 1),
-(28, 5, '会员管理', 'Manage user', 'javascript:;', '', 50100, 1),
-(29, 5, '会员组管理', 'Manage user group', 'javascript:;', '', 50200, 1),
-(30, 28, '会员管理', 'Manage user', 'User', '', 50101, 1),
-(31, 29, '管理会员组', 'Manage user group', 'Group', '', 50201, 1),
-(32, 7, '模板管理', 'Manage template', 'javascript:;', '', 70100, 1),
-(33, 32, '模板风格', 'Style template', 'Style', '', 70101, 1);
+(20, 3, '模块管理', 'Manage module', 'javascript:;', '', 30100, 1),
+(21, 20, '公告', 'Announcement', 'Announce', '', 30101, 1),
+(22, 6, '扩展', 'Extensions', 'javascript:;', '', 60100, 1),
+(23, 5, '会员管理', 'Manage user', 'javascript:;', '', 50100, 1),
+(24, 5, '会员组管理', 'Manage user group', 'javascript:;', '', 50200, 1),
+(25, 23, '会员管理', 'Manage user', 'User', '', 50101, 1),
+(26, 24, '管理会员组', 'Manage user group', 'Group', '', 50201, 1),
+
+INSERT INTO `Menu` (`Id`, `Pid`, `Name`, `EName`, `Url`, `Data`, `Order`, `Display`) VALUES (1, 0, '我的面板', 'Panel', 'Panel', '', 10000, 1), (2, 0, '设置', 'Settings', 'Setting', '', 20000, 1), (3, 0, '模块', 'Modules', 'Module', '', 30000, 1), (5, 0, '会员', 'Members', 'Member', '', 50000, 1), (6, 0, '扩展', 'Extensions', 'Extend', '', 60000, 1), (7, 0,'会员卡', 'MemberCards', 'MemberCard', '', 70000, 1), (8, 0, '应用', 'Plugin', 'Plugin', '', 80000, 1), (9, 2, '菜单设置', 'Menu Settings', 'javascript:;', '', 20100, 1), (10, 9, '菜单管理', 'Menu management', 'Menu', '', 20101, 1), (11, 1, '个人设置', 'Personal Settings', 'javascript:;', '', 10100, 1), (12, 11, '个人信息', 'Personal information', 'EditInfo', '', 10101, 1), (13, 11, '修改密码', 'Change password', 'EditPwd', '', 10102, 1), (14, 2, '管理员管理', 'Administrator manager', 'javascript:;', '', 20200, 1), (15, 14, '管理员管理', 'Administrator manager', 'Admin', '', 20201, 1), (16, 14, '角色管理', 'Role management', 'Role', '', 20202, 1), (17, 2, '日志管理', 'Log management', 'javascript:;', '', 20300, 1), (18, 17, '日志管理', 'Log management', 'Logs', '', 20301, 1), (19, 1, '快捷面板', 'Shortcut panel', 'javascript:;', '', 10200, 1), (20, 3, '模块管理', 'Manage module', 'javascript:;', '', 30100, 1), (21, 20, '公告', 'Announcement', 'Announce', '', 30101, 1), (22, 6, '扩展', 'Extensions', 'javascript:;', '', 60100, 1), (23, 5, '会员管理', 'Manage user', 'javascript:;', '', 50100, 1), (24, 5, '会员组管理', 'Manage user group', 'javascript:;', '', 50200, 1), (25, 23, '会员管理', 'Manage user', 'User', '', 50101, 1), (26, 24, '管理会员组', 'Manage user group', 'Group', '', 50201, 1);
 
 --
 -- 表的结构 `admin_panel`

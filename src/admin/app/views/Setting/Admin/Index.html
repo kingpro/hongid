@@ -30,13 +30,13 @@
 						{{range $admin_list := .admin_list}}
 						<tr>
 							<td align="center">{{$admin_list.Id}}</td>
-							<td>{{$admin_list.Username}}</td>
-							<td>{{$admin_list.Role.Rolename}}</td>
+							<td>{{$admin_list.UserName}}</td>
+							<td>{{$admin_list.Role.RoleName}}</td>
 							<td>{{$admin_list.Email}}</td>
 							<td>{{if eq $admin_list.Lang "zh-cn"}}{{msg $msg "zh-cn"}}{{else}}{{msg $msg "en"}}{{end}}</td>
-							<td align="center">{{$admin_list.Realname}}</td>
-							<td>{{$admin_list.Lastloginip}}</td>
-							<td>{{$admin_list.Lastlogintime}}</td>
+							<td align="center">{{$admin_list.RealName}}</td>
+							<td>{{$admin_list.LastLoginIp}}</td>
+							<td>{{$admin_list.LastLoginTime}}</td>
 							<td class="text-c">
 								<a href="/Admin/edit/{{$admin_list.Id}}/">{{msg $msg "edit"}}</a> | 
 								{{if eq $admin_list.Id 1}}

@@ -17,7 +17,7 @@ import (
 type Menu struct {
 	Id      int64  `xorm:"pk"`
 	Name    string `xorm:"char(40)"`
-	Enname  string `xorm:"char(40)"`
+	EName  string `xorm:"char(40)"`
 	Pid     int64  `xorm:"int(11)"`
 	Url     string `xorm:"char(100)"`
 	Data    string `xorm:"varchar(60)"`
@@ -52,7 +52,7 @@ func (m *Menu) Save() bool {
 	menu := new(Menu)
 
 	menu.Name = m.Name
-	menu.Enname = m.Enname
+	menu.EName = m.EName
 	menu.Pid = m.Pid
 	menu.Url = m.Url
 	menu.Data = m.Data
@@ -76,8 +76,8 @@ func (m *Menu) Edit(Id int64) bool {
 		menu.Name = m.Name
 	}
 
-	if len(m.Enname) > 0 {
-		menu.Enname = m.Enname
+	if len(m.EName) > 0 {
+		menu.EName = m.EName
 	}
 
 	if m.Pid > 0 {
@@ -198,7 +198,7 @@ func (m *Menu) GetLeftMenuHtml(Pid int64, Admin_Info *Admin) template.HTML {
 		if Admin_Info.Lang == "zh-cn" {
 			Html += "<h3 class=\"f14\"><span class=\"switchs cu on\" title=\"展开与收缩\"></span>" + menu_second.Name + "</h3>"
 		} else {
-			Html += "<h3 class=\"f14\"><span class=\"switchs cu on\" title=\"展开与收缩\"></span>" + menu_second.Enname + "</h3>"
+			Html += "<h3 class=\"f14\"><span class=\"switchs cu on\" title=\"展开与收缩\"></span>" + menu_second.EName + "</h3>"
 		}
 
 		Html += "<ul>"
@@ -207,7 +207,7 @@ func (m *Menu) GetLeftMenuHtml(Pid int64, Admin_Info *Admin) template.HTML {
 			if Admin_Info.Lang == "zh-cn" {
 				Html += "<a href=\"javascript:_MP(" + strconv.FormatInt(menu_last.Id, 10) + ",'" + menu_last.Url + "');\" hidefocus=\"true\" style=\"outline:none;\">" + menu_last.Name + "</a>"
 			} else {
-				Html += "<a href=\"javascript:_MP(" + strconv.FormatInt(menu_last.Id, 10) + ",'" + menu_last.Url + "');\" hidefocus=\"true\" style=\"outline:none;\">" + menu_last.Enname + "</a>"
+				Html += "<a href=\"javascript:_MP(" + strconv.FormatInt(menu_last.Id, 10) + ",'" + menu_last.Url + "');\" hidefocus=\"true\" style=\"outline:none;\">" + menu_last.EName + "</a>"
 			}
 
 			Html += "</li>"
@@ -224,7 +224,7 @@ func (m *Menu) GetLeftMenuHtml(Pid int64, Admin_Info *Admin) template.HTML {
 				if Admin_Info.Lang == "zh-cn" {
 					Html += "<a href=\"javascript:_MP(" + strconv.FormatInt(menu_info.Id, 10) + ",'" + menu_info.Url + "');\" hidefocus=\"true\" style=\"outline:none;\">" + menu_info.Name + "</a>"
 				} else {
-					Html += "<a href=\"javascript:_MP(" + strconv.FormatInt(menu_info.Id, 10) + ",'" + menu_info.Url + "');\" hidefocus=\"true\" style=\"outline:none;\">" + menu_info.Enname + "</a>"
+					Html += "<a href=\"javascript:_MP(" + strconv.FormatInt(menu_info.Id, 10) + ",'" + menu_info.Url + "');\" hidefocus=\"true\" style=\"outline:none;\">" + menu_info.EName + "</a>"
 				}
 				Html += "</li>"
 			}
@@ -258,13 +258,13 @@ func (m *Menu) GetMenuOptionHtml(Id int64, Admin_Info *Admin) template.HTML {
 			if Admin_Info.Lang == "zh-cn" {
 				Html += "<option value=" + strconv.FormatInt(menu.Id, 10) + " selected ><b>" + menu.Name + "</b></option>"
 			} else {
-				Html += "<option value=" + strconv.FormatInt(menu.Id, 10) + " selected ><b>" + menu.Enname + "</b></option>"
+				Html += "<option value=" + strconv.FormatInt(menu.Id, 10) + " selected ><b>" + menu.EName + "</b></option>"
 			}
 		} else {
 			if Admin_Info.Lang == "zh-cn" {
 				Html += "<option value=" + strconv.FormatInt(menu.Id, 10) + "><b>" + menu.Name + "</b></option>"
 			} else {
-				Html += "<option value=" + strconv.FormatInt(menu.Id, 10) + "><b>" + menu.Enname + "</b></option>"
+				Html += "<option value=" + strconv.FormatInt(menu.Id, 10) + "><b>" + menu.EName + "</b></option>"
 			}
 		}
 
@@ -273,13 +273,13 @@ func (m *Menu) GetMenuOptionHtml(Id int64, Admin_Info *Admin) template.HTML {
 				if Admin_Info.Lang == "zh-cn" {
 					Html += "<option value=" + strconv.FormatInt(menu_second.Id, 10) + " selected >&#12288;&#8866;" + menu_second.Name + "</option>"
 				} else {
-					Html += "<option value=" + strconv.FormatInt(menu_second.Id, 10) + " selected >&#12288;&#8866;" + menu_second.Enname + "</option>"
+					Html += "<option value=" + strconv.FormatInt(menu_second.Id, 10) + " selected >&#12288;&#8866;" + menu_second.EName + "</option>"
 				}
 			} else {
 				if Admin_Info.Lang == "zh-cn" {
 					Html += "<option value=" + strconv.FormatInt(menu_second.Id, 10) + ">&#12288;&#8866;" + menu_second.Name + "</option>"
 				} else {
-					Html += "<option value=" + strconv.FormatInt(menu_second.Id, 10) + ">&#12288;&#8866;" + menu_second.Enname + "</option>"
+					Html += "<option value=" + strconv.FormatInt(menu_second.Id, 10) + ">&#12288;&#8866;" + menu_second.EName + "</option>"
 				}
 			}
 
@@ -288,13 +288,13 @@ func (m *Menu) GetMenuOptionHtml(Id int64, Admin_Info *Admin) template.HTML {
 					if Admin_Info.Lang == "zh-cn" {
 						Html += "<option value=" + strconv.FormatInt(menu_last.Id, 10) + " selected >&#12288;&#12288;&#8866;" + menu_last.Name + "</option>"
 					} else {
-						Html += "<option value=" + strconv.FormatInt(menu_last.Id, 10) + " selected >&#12288;&#12288;&#8866;" + menu_last.Enname + "</option>"
+						Html += "<option value=" + strconv.FormatInt(menu_last.Id, 10) + " selected >&#12288;&#12288;&#8866;" + menu_last.EName + "</option>"
 					}
 				} else {
 					if Admin_Info.Lang == "zh-cn" {
 						Html += "<option value=" + strconv.FormatInt(menu_last.Id, 10) + ">&#12288;&#12288;&#8866;" + menu_last.Name + "</option>"
 					} else {
-						Html += "<option value=" + strconv.FormatInt(menu_last.Id, 10) + ">&#12288;&#12288;&#8866;" + menu_last.Enname + "</option>"
+						Html += "<option value=" + strconv.FormatInt(menu_last.Id, 10) + ">&#12288;&#12288;&#8866;" + menu_last.EName + "</option>"
 					}
 				}
 
@@ -331,13 +331,13 @@ func (m *Menu) GetMenuTree(role string, Admin_Info *Admin) template.HTML {
 			if Admin_Info.Lang == "zh-cn" {
 				Html += "{ id:" + strconv.FormatInt(menu.Id, 10) + ", pId:" + strconv.FormatInt(menu.Pid, 10) + ", name:'" + menu.Name + "', open:true, checked:true},"
 			} else {
-				Html += "{ id:" + strconv.FormatInt(menu.Id, 10) + ", pId:" + strconv.FormatInt(menu.Pid, 10) + ", name:'" + menu.Enname + "', open:true, checked:true},"
+				Html += "{ id:" + strconv.FormatInt(menu.Id, 10) + ", pId:" + strconv.FormatInt(menu.Pid, 10) + ", name:'" + menu.EName + "', open:true, checked:true},"
 			}
 		} else {
 			if Admin_Info.Lang == "zh-cn" {
 				Html += "{ id:" + strconv.FormatInt(menu.Id, 10) + ", pId:" + strconv.FormatInt(menu.Pid, 10) + ", name:'" + menu.Name + "', open:true},"
 			} else {
-				Html += "{ id:" + strconv.FormatInt(menu.Id, 10) + ", pId:" + strconv.FormatInt(menu.Pid, 10) + ", name:'" + menu.Enname + "', open:true},"
+				Html += "{ id:" + strconv.FormatInt(menu.Id, 10) + ", pId:" + strconv.FormatInt(menu.Pid, 10) + ", name:'" + menu.EName + "', open:true},"
 			}
 		}
 
@@ -346,13 +346,13 @@ func (m *Menu) GetMenuTree(role string, Admin_Info *Admin) template.HTML {
 				if Admin_Info.Lang == "zh-cn" {
 					Html += "{ id:" + strconv.FormatInt(menu_second.Id, 10) + ", pId:" + strconv.FormatInt(menu_second.Pid, 10) + ", name:'" + menu_second.Name + "', open:true, checked:true},"
 				} else {
-					Html += "{ id:" + strconv.FormatInt(menu_second.Id, 10) + ", pId:" + strconv.FormatInt(menu_second.Pid, 10) + ", name:'" + menu_second.Enname + "', open:true, checked:true},"
+					Html += "{ id:" + strconv.FormatInt(menu_second.Id, 10) + ", pId:" + strconv.FormatInt(menu_second.Pid, 10) + ", name:'" + menu_second.EName + "', open:true, checked:true},"
 				}
 			} else {
 				if Admin_Info.Lang == "zh-cn" {
 					Html += "{ id:" + strconv.FormatInt(menu_second.Id, 10) + ", pId:" + strconv.FormatInt(menu_second.Pid, 10) + ", name:'" + menu_second.Name + "', open:true},"
 				} else {
-					Html += "{ id:" + strconv.FormatInt(menu_second.Id, 10) + ", pId:" + strconv.FormatInt(menu_second.Pid, 10) + ", name:'" + menu_second.Enname + "', open:true},"
+					Html += "{ id:" + strconv.FormatInt(menu_second.Id, 10) + ", pId:" + strconv.FormatInt(menu_second.Pid, 10) + ", name:'" + menu_second.EName + "', open:true},"
 				}
 			}
 
@@ -361,13 +361,13 @@ func (m *Menu) GetMenuTree(role string, Admin_Info *Admin) template.HTML {
 					if Admin_Info.Lang == "zh-cn" {
 						Html += "{ id:" + strconv.FormatInt(menu_last.Id, 10) + ", pId:" + strconv.FormatInt(menu_last.Pid, 10) + ", name:'" + menu_last.Name + "', checked:true},"
 					} else {
-						Html += "{ id:" + strconv.FormatInt(menu_last.Id, 10) + ", pId:" + strconv.FormatInt(menu_last.Pid, 10) + ", name:'" + menu_last.Enname + "', checked:true},"
+						Html += "{ id:" + strconv.FormatInt(menu_last.Id, 10) + ", pId:" + strconv.FormatInt(menu_last.Pid, 10) + ", name:'" + menu_last.EName + "', checked:true},"
 					}
 				} else {
 					if Admin_Info.Lang == "zh-cn" {
 						Html += "{ id:" + strconv.FormatInt(menu_last.Id, 10) + ", pId:" + strconv.FormatInt(menu_last.Pid, 10) + ", name:'" + menu_last.Name + "'},"
 					} else {
-						Html += "{ id:" + strconv.FormatInt(menu_last.Id, 10) + ", pId:" + strconv.FormatInt(menu_last.Pid, 10) + ", name:'" + menu_last.Enname + "'},"
+						Html += "{ id:" + strconv.FormatInt(menu_last.Id, 10) + ", pId:" + strconv.FormatInt(menu_last.Pid, 10) + ", name:'" + menu_last.EName + "'},"
 					}
 				}
 
@@ -406,21 +406,21 @@ func (m *Menu) GetMenuMap(Admin_Info *Admin) template.HTML {
 		if Admin_Info.Lang == "zh-cn" {
 			Html += "<li class=\"title\">" + menu.Name + "</li>"
 		} else {
-			Html += "<li class=\"title\">" + menu.Enname + "</li>"
+			Html += "<li class=\"title\">" + menu.EName + "</li>"
 		}
 
 		for _, menu_second := range menu_list[menu.Id] {
 			if Admin_Info.Lang == "zh-cn" {
 				Html += "<li class=\"title2\">" + menu_second.Name + "</li>"
 			} else {
-				Html += "<li class=\"title2\">" + menu_second.Enname + "</li>"
+				Html += "<li class=\"title2\">" + menu_second.EName + "</li>"
 			}
 
 			for _, menu_last := range menu_list[menu_second.Id] {
 				if Admin_Info.Lang == "zh-cn" {
 					Html += "<li><a href=\"javascript:Go(" + strconv.FormatInt(menu_last.Id, 10) + ",'" + menu_last.Url + "')\">" + menu_last.Name + "</a></li>"
 				} else {
-					Html += "<li><a href=\"javascript:Go(" + strconv.FormatInt(menu_last.Id, 10) + ",'" + menu_last.Url + "')\">" + menu_last.Enname + "</a></li>"
+					Html += "<li><a href=\"javascript:Go(" + strconv.FormatInt(menu_last.Id, 10) + ",'" + menu_last.Url + "')\">" + menu_last.EName + "</a></li>"
 				}
 			}
 		}
@@ -461,7 +461,7 @@ func (m *Menu) GetMenuHtml(Admin_Info *Admin) template.HTML {
 		if Admin_Info.Lang == "zh-cn" {
 			Html += "<td align=\"left\"><b>" + menu.Name + "</b></td>"
 		} else {
-			Html += "<td align=\"left\"><b>" + menu.Enname + "</b></td>"
+			Html += "<td align=\"left\"><b>" + menu.EName + "</b></td>"
 		}
 		Html += "<td align=\"center\">" + strconv.FormatInt(menu.Order, 10) + "</td>"
 		Html += "<td align=\"center\">" + menu.Url + "</td>"
@@ -498,7 +498,7 @@ func (m *Menu) GetMenuHtml(Admin_Info *Admin) template.HTML {
 			if Admin_Info.Lang == "zh-cn" {
 				Html += "<td align=\"left\">&nbsp;&nbsp;&#12288;&#8866;&nbsp;&nbsp;" + menu_second.Name + "</td>"
 			} else {
-				Html += "<td align=\"left\">&nbsp;&nbsp;&#12288;&#8866;&nbsp;&nbsp;" + menu_second.Enname + "</td>"
+				Html += "<td align=\"left\">&nbsp;&nbsp;&#12288;&#8866;&nbsp;&nbsp;" + menu_second.EName + "</td>"
 			}
 			Html += "<td align=\"center\">" + strconv.FormatInt(menu_second.Order, 10) + "</td>"
 			Html += "<td align=\"center\">" + menu_second.Url + "</td>"
@@ -535,7 +535,7 @@ func (m *Menu) GetMenuHtml(Admin_Info *Admin) template.HTML {
 				if Admin_Info.Lang == "zh-cn" {
 					Html += "<td align=\"left\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#12288;&#8866;&nbsp;&nbsp;" + menu_last.Name + "</td>"
 				} else {
-					Html += "<td align=\"left\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#12288;&#8866;&nbsp;&nbsp;" + menu_last.Enname + "</td>"
+					Html += "<td align=\"left\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#12288;&#8866;&nbsp;&nbsp;" + menu_last.EName + "</td>"
 				}
 				Html += "<td align=\"center\">" + strconv.FormatInt(menu_last.Order, 10) + "</td>"
 				Html += "<td align=\"center\">" + menu_last.Url + "</td>"
@@ -590,7 +590,7 @@ func (m *Menu) GetPos(Id int64, Admin_Info *Admin) string {
 	if Admin_Info.Lang == "zh-cn" {
 		return str + menu.Name + " > "
 	} else {
-		return str + menu.Enname + " > "
+		return str + menu.EName + " > "
 	}
 
 }

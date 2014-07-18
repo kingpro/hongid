@@ -18,7 +18,7 @@ type AdminPanel struct {
 	Aid        int64  `xorm:"int(11)"`
 	Name       string `xorm:"varchar(40)"`
 	Url        string `xorm:"char(100)"`
-	Createtime string `xorm:"DateTime"`
+	CreateTime string `xorm:"DateTime"`
 }
 
 //根据Id获取信息
@@ -42,7 +42,7 @@ func (a *AdminPanel) GetPanelList(Admin_Info *Admin) []*AdminPanel {
 	err := DB_Read.Where("aid=?", Admin_Info.Id).Find(&admin_panel)
 
 	if err != nil {
-		revel.WARN.Printf("获取管理员[%v]快捷方式列表错误: %v", Admin_Info.Realname, err)
+		revel.WARN.Printf("获取管理员[%v]快捷方式列表错误: %v", Admin_Info.RealName, err)
 	} else {
 		menu := new(Menu)
 
@@ -60,7 +60,7 @@ func (a *AdminPanel) GetByMid(Mid int64, Admin_Info *Admin) *AdminPanel {
 
 	_, err := DB_Read.Where("mid=? and aid=?", Mid, Admin_Info.Id).Get(admin_panel)
 	if err != nil {
-		revel.WARN.Printf("根据mid[%v]获取管理员[%v]快捷菜单错误: %v", Mid, Admin_Info.Realname, err)
+		revel.WARN.Printf("根据mid[%v]获取管理员[%v]快捷菜单错误: %v", Mid, Admin_Info.RealName, err)
 	}
 
 	return admin_panel
@@ -72,7 +72,7 @@ func (a *AdminPanel) IsAdd(Mid int64, Admin_Info *Admin) bool {
 
 	_, err := DB_Read.Where("mid=? AND aid=?", Mid, Admin_Info.Id).Get(admin_panel)
 	if err != nil {
-		revel.WARN.Printf("根据mid[%v]获取管理员[%v]快捷菜单错误: %v", Mid, Admin_Info.Realname, err)
+		revel.WARN.Printf("根据mid[%v]获取管理员[%v]快捷菜单错误: %v", Mid, Admin_Info.RealName, err)
 	}
 
 	if admin_panel.Id > 0 {
@@ -88,7 +88,7 @@ func (a *AdminPanel) DelPanel(Mid int64, Admin_Info *Admin) bool {
 
 	_, err := DB_Write.Where("mid=? AND aid=?", Mid, Admin_Info.Id).Delete(admin_panel)
 	if err != nil {
-		revel.WARN.Printf("删除管理员[%v]快捷方式错误: %v", Admin_Info.Realname, err)
+		revel.WARN.Printf("删除管理员[%v]快捷方式错误: %v", Admin_Info.RealName, err)
 		return false
 	}
 
@@ -108,7 +108,7 @@ func (a *AdminPanel) AddPanel(Mid int64, Admin_Info *Admin) bool {
 
 	admin_panel.Name = menu_info.Name
 	admin_panel.Url = menu_info.Url
-	admin_panel.Createtime = time.Now().Format(times.Time_Layout_1)
+	admin_panel.CreateTime = time.Now().Format(times.Time_Layout_1)
 
 	_, err := DB_Write.Insert(admin_panel)
 	if err != nil {

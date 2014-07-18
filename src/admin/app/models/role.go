@@ -18,12 +18,12 @@ import (
 var _ *xorm.Engine
 
 type Role struct {
-	Id         int64  `xorm:"pk"`
-	Rolename   string `xorm:"unique varchar(255)"`
+	Id         int64
+	RoleName   string `xorm:"unique varchar(255)"`
 	Desc       string `xorm:"varchar:(255)"`
 	Data       string `xorm:"text"` //菜单列表
 	Status     int64  `xorm:"bool"`
-	Createtime string `xorm:"DateTime"`
+	CreateTime string `xorm:"DateTime"`
 }
 
 //根据ID获取角色信息
@@ -75,11 +75,11 @@ func (r *Role) GetRoleList() []*Role {
 func (r *Role) Save() bool {
 
 	role := new(Role)
-	role.Rolename = r.Rolename
+	role.RoleName = r.RoleName
 	role.Desc = r.Desc
 	role.Data = r.Data
 	role.Status = r.Status
-	role.Createtime = time.Now().Format(times.Time_Layout_1)
+	role.CreateTime = time.Now().Format(times.Time_Layout_1)
 
 	_, err := DB_Write.Insert(role)
 	if err != nil {
@@ -94,8 +94,8 @@ func (r *Role) Save() bool {
 func (r *Role) Edit(Id int64) bool {
 	role := new(Role)
 
-	if len(r.Rolename) > 0 {
-		role.Rolename = r.Rolename
+	if len(r.RoleName) > 0 {
+		role.RoleName = r.RoleName
 	}
 	if len(r.Desc) > 0 {
 		role.Desc = r.Desc

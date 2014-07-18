@@ -23,9 +23,6 @@ var (
 	DB_Read *xorm.Engine
 	//写数据
 	DB_Write *xorm.Engine
-	//数据库前缀
-	Read_prefix  string
-	Write_prefix string
 )
 
 //SMTP
@@ -57,7 +54,6 @@ func initDB() {
 	read_user, _ := c.String("database", "db.read.user")
 	read_password, _ := c.String("database", "db.read.password")
 	read_host, _ := c.String("database", "db.read.host")
-	read_prefix, _ := c.String("database", "db.read.prefix")
 
 	//数据库连接
 	var err error
@@ -65,22 +61,19 @@ func initDB() {
 	if err != nil {
 		revel.WARN.Printf("DB_Read错误: %v", err)
 	}
-	DB_Read.SetTableMapper(core.NewPrefixMapper(core.SnakeMapper{}, read_prefix))
-	Read_prefix = read_prefix
+	DB_Read.SetMapper(core.SameMapper{})
 
 	write_driver, _ := c.String("database", "db.write.driver")
 	write_dbname, _ := c.String("database", "db.write.dbname")
 	write_user, _ := c.String("database", "db.write.user")
 	write_password, _ := c.String("database", "db.write.password")
 	write_host, _ := c.String("database", "db.write.host")
-	write_prefix, _ := c.String("database", "db.write.prefix")
 
 	DB_Write, err = xorm.NewEngine(write_driver, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8", write_user, write_password, write_host, write_dbname))
 	if err != nil {
 		revel.WARN.Printf("DB_Write错误: %v", err)
 	}
-	DB_Write.SetTableMapper(core.NewPrefixMapper(core.SnakeMapper{}, write_prefix))
-	Write_prefix = write_prefix
+	DB_Write.SetMapper(core.SameMapper{})
 
 	//缓存方式是存放到内存中，缓存struct的记录数为1000条
 	//cacher := xorm.NewLRUCacher(xorm.NewMemoryStore(), 1000)
