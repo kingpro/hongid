@@ -26,66 +26,39 @@ func InsertNewGasStation(reqMsg *ReqNewStation) (*SationInfo, bool, errors.Globa
 	timeNow := time.Now()
 
 	//从Member表中抽取一个未使用的加油站记录
-	member := &Member{
-		GroupId: CMemberGroup_GasStation_ID,
-	}
-	if exist, err := ReaderEngine.Where("Status = ?", EMemberStatus_NotUse).Get(member); err != nil {
-		return nil, false, errors.Newf(errors.CODE_DB_ERR_GET, "Get unuse member record return error: %v", err)
-	} else if !exist {
-		return nil, false, errors.New(errors.CODE_DB_ERR_NODATA, errors.MSG_DB_ERR_NODATA)
+	memberNew, exist, gErr := GetUnUseMember(CMemberGroup_GasStation_ID, WriterEngine)
+	if !exist {
+		return nil, false, gErr
 	}
 
-	//事务处理
-	session := WriterEngine.NewSession()
-	defer session.Close()
+	memberNew.UUID = uuid
+	memberNew.TelPhone = reqMsg.TelPhone
+	memberNew.Email = reqMsg.Email
+	memberNew.NickName = reqMsg.StationName
+	memberNew.Contact = reqMsg.Contact
+	memberNew.Phone = reqMsg.Phone
+	memberNew.Fax = reqMsg.Fax
+	memberNew.PostCode = reqMsg.PostCode
+	memberNew.LastTime = timeNow.Format(times.Time_Layout_1)
+	memberNew.LastIp = reqMsg.ClientIp
+	memberNew.HomePage = reqMsg.HomePage
+	memberNew.Status = EMemberStatus_Enable
 
-	err := session.Begin()
-	//TODO memberCard handle
-	//更新信息
-	memberUpd := &Member{
-		UUID:     uuid,
-		TelPhone: reqMsg.TelPhone,
-		Email:    reqMsg.Email,
-		NickName: reqMsg.StationName,
-		Contact:  reqMsg.Contact,
-		Phone:    reqMsg.Phone,
-		Fax:      reqMsg.Fax,
-		PostCode: reqMsg.PostCode,
-		LastTime: timeNow.Format(times.Time_Layout_1),
-		LastIp:   reqMsg.ClientIp,
-		HomePage: reqMsg.HomePage,
-		Status:   EMemberStatus_Enable,
+	//加油站详细信息
+	memberProfile := &MemberProfile{
+		UUID:         uuid,
+		ProvinceCode: reqMsg.ProvinceCode,
+		CityCode:     reqMsg.CityCode,
+		CountyCode:   reqMsg.CountyCode,
+		AdressDetail: reqMsg.Address,
+		RegTime:      timeNow.Format(times.Time_Layout_1),
+		BirthDay:     timeNow.Format(times.Time_Layout_2),
+		CalenDarType: ECalenDarType_Gregorian,
+		RegIp:        reqMsg.ClientIp,
 	}
 
-	affacted := true
-	if _, err = WriterEngine.Update(memberUpd, member); err != nil {
-		affacted = false
-		session.Rollback()
-		return nil, false, errors.Newf(errors.CODE_DB_ERR_UPDATE, "Turn unuse member record[%+v] return error :%v", member, err)
-	}
-
-	//如果成功更新会员主表信息，则添加一条详细信息
-	if affacted {
-		//加油站详细信息
-		memberProfile := &MemberProfile{
-			UUID:         uuid,
-			ProvinceCode: reqMsg.ProvinceCode,
-			CityCode:     reqMsg.CityCode,
-			CountyCode:   reqMsg.CountyCode,
-			AdressDetail: reqMsg.Address,
-			RegTime:      timeNow.Format(times.Time_Layout_1),
-			BirthDay:     timeNow.Format(times.Time_Layout_2),
-			CalenDarType: ECalenDarType_Gregorian,
-			RegIp:        reqMsg.ClientIp,
-		}
-		if _, err = WriterEngine.Insert(memberProfile); err != nil {
-			session.Rollback()
-			return nil, false, errors.Newf(errors.CODE_DB_ERR_INSERT, "InsertMemberProfile return error: %v", err)
-		}
-	}
-	err = session.Commit()
-	if err != nil {
-		return nil, false, errors.New(errors.CODE_DB_ERR_COMMIT, errors.MSG_DB_ERR_COMMIT)
+	if _, err := GenMember(memberNew, memberProfile, WriterEngine); err.IsError() {
+		return nil, false, err
 	}
 
 	//TODO handle new station response
@@ -112,13 +85,9 @@ func UpdateGasStation(reqMsg *ReqUpdStation, condiBean *Member) (*SationInfo, bo
 
 	timeNow := time.Now()
 
-	session := WriterEngine.NewSession()
-	defer session.Close()
-
-	//事务处理
-	err := session.Begin()
-
 	memberUdp := &Member{
+		Id:       condiBean.Id,
+		UUID:     condiBean.UUID,
 		TelPhone: reqMsg.TelPhone,
 		Email:    reqMsg.Email,
 		NickName: reqMsg.StationName,
@@ -130,31 +99,17 @@ func UpdateGasStation(reqMsg *ReqUpdStation, condiBean *Member) (*SationInfo, bo
 		LastIp:   reqMsg.ClientIp,
 		HomePage: reqMsg.HomePage,
 	}
-	affacted := true
-	if _, err = WriterEngine.Update(memberUdp, condiBean); err != nil {
-		affacted = false
-		session.Rollback()
-		return nil, false, errors.Newf(errors.CODE_DB_ERR_UPDATE, "Update Gas Station return error: %v", err)
+
+	memberProfile := &MemberProfile{
+		ProvinceCode: reqMsg.ProvinceCode,
+		CityCode:     reqMsg.CityCode,
+		CountyCode:   reqMsg.CountyCode,
+		AdressDetail: reqMsg.Address,
+		CalenDarType: ECalenDarType_Gregorian,
 	}
 
-	//如果成功更新主表信息，则更新profile表信息
-	if affacted {
-		memberProfile := &MemberProfile{
-			ProvinceCode: reqMsg.ProvinceCode,
-			CityCode:     reqMsg.CityCode,
-			CountyCode:   reqMsg.CountyCode,
-			AdressDetail: reqMsg.Address,
-			BirthDay:     timeNow.Format(times.Time_Layout_2),
-			CalenDarType: ECalenDarType_Gregorian,
-		}
-		if _, err = WriterEngine.Where("UUID = ?", condiBean.UUID).Update(memberProfile); err != nil {
-			session.Rollback()
-			return nil, false, errors.Newf(errors.CODE_DB_ERR_UPDATE, "Update Gas Station Profile return error: %v", err)
-		}
-	}
-	err = session.Commit()
-	if err != nil {
-		return nil, false, errors.New(errors.CODE_DB_ERR_COMMIT, errors.MSG_DB_ERR_COMMIT)
+	if _, err := UpdaeteMember(memberUdp, memberProfile, WriterEngine); err.IsError() {
+		return nil, false, err
 	}
 
 	//TODO handle upd station response
